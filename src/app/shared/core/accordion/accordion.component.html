@@ -1,5 +1,10 @@
 <div class='accordion-title' (click)="doToggle()">
-  <ng-content select="[rs-accordion-title]"></ng-content>
+  <div class='accordion-title-content'>
+    <ng-content select="[rs-accordion-title]"></ng-content>
+  </div>
+  <rs-icon [class.is-rotated]="expanded"
+           name="angle-right"
+           size="2x"></rs-icon>
 </div>
 <div *ngIf="expanded"
      class='accordion-content'>

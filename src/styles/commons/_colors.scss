@@ -5,3 +5,13 @@ $light-2: #BBBCBC;
 
 $dark-1: #585858;
 $dark-2: #1E1E1E;
+
+//Specific colors
+$green-1: #37EE7D;
+$green-2: #1FB789;
+
+$yellow-1: #F6D366;
+$yellow-2: #F8C071;
+
+$gradient-yellow: linear-gradient(to right, $yellow-1, $yellow-2);
+$gradient-green: linear-gradient(to right, $green-1, $green-2);

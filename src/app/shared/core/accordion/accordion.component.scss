@@ -11,9 +11,9 @@
 }
 
 .accordion-title{
-	@include padding(1);
+	@include padding(2);
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	box-sizing: border-box;
 
@@ -26,8 +26,18 @@
 	cursor: pointer;
 
 	font-size: 3rem;
+	font-family: $font-family-title;
+	font-weight: 400;
+
+	.accordion-title-content{
+		flex: 1;
+	}
 }
 
 .accordion-content{
+	width: 100%;
+}
 
+.is-rotated{
+	transform: rotate(90deg);
 }

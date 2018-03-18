@@ -25,6 +25,10 @@ rs-header{
 	grid-area: header;
 }
 
-rs-reservation-list{
+rs-reservation-statusbar{
+	grid-area: statusbar;
+}
+
+rs-reservation-sidebar{
 	grid-area: sidebar;
 }

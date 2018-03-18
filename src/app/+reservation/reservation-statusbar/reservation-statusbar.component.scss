@@ -1,0 +1,11 @@
+@import 'commons';
+
+:host{
+	@extend %component;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	color: $light-1;
+	background-color: $dark-2;
+}

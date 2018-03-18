@@ -1,0 +1,66 @@
+@import 'commons';
+
+:host{
+	@extend %component;
+	width: 100%;
+}
+
+.entry-content{
+	flex: 1;
+	@include padding(2);
+
+	&.selected{
+		background-color: $yellow-1;
+	}
+
+	.reservation-name{
+		font-size: 3rem;
+		font-weight: 400;
+		color: $dark-1;
+	}
+
+	.reservation-details{
+		display: flex;
+		flex-direction: row;
+
+		width: 100%;
+
+		li{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			rs-icon{
+				color: rgba(0,0,0,0.5);
+				margin-right: nth($margins, 1);
+			}
+			span{
+				color: $dark-2;
+				font-size: 3rem;
+				font-weight: 700;
+			}
+
+			& + li{
+				margin-left: 20px;
+			}
+		}
+	}
+}
+
+.entry-status{
+	@include transition;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
+	width: 120px;
+	background: $gradient-yellow;
+
+	rs-icon{
+		opacity: 0.5;
+	}
+
+	&:hover, &:focus, &:active{
+		filter: brightness(110%);
+	}
+}

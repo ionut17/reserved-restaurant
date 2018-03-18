@@ -4,8 +4,16 @@
 	box-sizing: border-box;
 }
 
+@mixin margin($level: 1){
+	margin: nth($margins, $level);
+}
+
 @mixin padding($level: 1){
 	padding: nth($paddings, $level);
+}
+
+@mixin transition(){
+	transition: all 200ms linear;
 }
 
 @mixin shadow($level: 1){

@@ -1,0 +1,18 @@
+<section class="entry-content"
+         [class.selected]="selected">
+    <h3 class="reservation-name">{{ reservation.name }}</h3>
+    <ul class="reservation-details">
+      <li>
+        <rs-icon name="users" size="2x"></rs-icon>
+        <span>{{ reservation.people }}</span>
+      </li>
+      <li>
+        <rs-icon name="clock-o" size="2x"></rs-icon>
+        <span>{{ reservation.startTime | date:'HH:mm' }}</span>
+      </li>
+    </ul>
+</section>
+<section class="entry-status">
+  <rs-icon *ngIf="!selected" name="circle" size="3x"></rs-icon>
+  <rs-icon *ngIf="selected" name="chevron-circle-left" size="3x"></rs-icon>
+</section>

@@ -19,7 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "rs",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "assets/icons/css/line-awesome.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

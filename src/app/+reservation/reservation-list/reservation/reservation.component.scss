@@ -1,6 +1,0 @@
-@import 'common';
-
-:host{
-	@extend %component;
-	@include padding(2);
-}

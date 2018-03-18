@@ -2,11 +2,9 @@
 
 :host{
 	@extend %component;
-	padding: 0 nth($paddings, 3);
-
-	width: 100%;
-	height: $header-height;
-	justify-content: center;
+	@include shadow(2);
+	flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
 	background-color: $light-1;
 }
