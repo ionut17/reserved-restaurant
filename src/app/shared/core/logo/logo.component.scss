@@ -1,0 +1,15 @@
+@import 'commons';
+
+:host{
+	@extend %component;
+	justify-content: center;
+	align-items: center;
+
+	width: 150px;
+	height: 42px;
+
+	background-image: url('../../../../assets/logo.svg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}

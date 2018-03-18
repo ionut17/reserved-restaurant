@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 3601 124 34">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1e1e1e;
+        font-size: 28px;
+        font-family: Arvo;
+      }
+
+      .cls-2 {
+        fill: #ed2024;
+      }
+    </style>
+  </defs>
+  <g id="_1" data-name="1" transform="translate(273 3561)">
+    <g id="Group_1" data-name="Group 1" transform="translate(-243 40)">
+      <text id="reServed" class="cls-1" transform="translate(0 27)"><tspan x="0" y="0">reServed</tspan></text>
+      <rect id="Rectangle_1" data-name="Rectangle 1" class="cls-2" width="27.119" height="4.043" transform="translate(1.348 6.305)"/>
+    </g>
+  </g>
+</svg>

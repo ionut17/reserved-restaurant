@@ -1,0 +1,33 @@
+@import 'commons';
+
+:host{
+	@extend %component;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+
+	width: 100%;
+	height: auto;
+}
+
+.accordion-title{
+	@include padding(1);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+
+	width: 100%;
+	height: $header-height;
+
+	background-color: $dark-2;
+	color: $light-1;
+	user-select: none;
+	cursor: pointer;
+
+	font-size: 3rem;
+}
+
+.accordion-content{
+
+}

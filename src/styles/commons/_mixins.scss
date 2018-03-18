@@ -1,0 +1,13 @@
+%component{
+	display: flex;
+	font-size: 2rem;
+	box-sizing: border-box;
+}
+
+@mixin padding($level: 1){
+	padding: nth($paddings, $level);
+}
+
+@mixin shadow($level: 1){
+	box-shadow: unquote(nth($shadows, $level));
+}
