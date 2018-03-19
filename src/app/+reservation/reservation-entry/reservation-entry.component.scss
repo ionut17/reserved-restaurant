@@ -3,6 +3,10 @@
 :host{
 	@extend %component;
 	width: 100%;
+
+	&:hover, &:focus, &:active{
+		filter: brightness(105%);
+	}
 }
 
 .entry-content{
@@ -11,12 +15,19 @@
 
 	&.selected{
 		background-color: $yellow-1;
+		background-color: $dark-2;
+		.reservation-name, .reservation-details li span{
+			color: $light-1;
+		}
+		.reservation-details li rs-icon{
+			color: transparentize($light-1, 0.25);
+		}
 	}
 
 	.reservation-name{
 		font-size: 3rem;
 		font-weight: 400;
-		color: $dark-1;
+		color: rgba(0,0,0,0.75);
 	}
 
 	.reservation-details{
@@ -54,13 +65,10 @@
 	cursor: pointer;
 
 	width: 120px;
-	background: $gradient-yellow;
+	background: $gradient-yellow; //$accent-1
+	background: $accent-1;
 
 	rs-icon{
 		opacity: 0.5;
-	}
-
-	&:hover, &:focus, &:active{
-		filter: brightness(110%);
 	}
 }

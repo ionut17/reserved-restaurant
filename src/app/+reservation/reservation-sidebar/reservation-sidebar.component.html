@@ -4,7 +4,7 @@
   <rs-reservation-entry *ngFor="let reservation of reservations"
                         [reservation]="reservation"
                         [selected]="isSelected(reservation)"
-                        (click)="selectReservation(reservation)"></rs-reservation-entry>
+                        (select)="selectReservation(reservation)"></rs-reservation-entry>
 </rs-accordion>
 <rs-accordion id="clients">
   <div rs-accordion-title>Clienti</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Reservation } from '../../shared/model';
 
@@ -13,9 +13,15 @@ export class ReservationEntryComponent implements OnInit {
 
   @Input() selected: boolean = false;
 
+  @Output() select: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  emitSelect(){
+    this.select.emit();
   }
 
 }

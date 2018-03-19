@@ -4,12 +4,14 @@ import { HeaderComponent } from './header/header.component';
 import { LogoComponent } from './logo/logo.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { IconComponent } from './icon/icon.component';
+import { SidemenuComponent } from './sidemenu/sidemenu.component';
 
 const moduleComponents = [
   HeaderComponent,
   LogoComponent,
   AccordionComponent,
-  IconComponent
+  IconComponent,
+  SidemenuComponent
 ]
 
 @NgModule({
