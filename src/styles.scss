@@ -9,3 +9,12 @@ html{
 body{
 	font-size: 2rem;
 }
+
+.cdk-overlay-container{
+	position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+	justify-content: flex-end;
+	pointer-events: none;
+}

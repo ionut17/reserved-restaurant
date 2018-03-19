@@ -5,6 +5,7 @@ import { LogoComponent } from './logo/logo.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { IconComponent } from './icon/icon.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 const moduleComponents = [
   HeaderComponent,
@@ -19,6 +20,7 @@ const moduleComponents = [
     CommonModule
   ],
   declarations: [moduleComponents],
-  exports: [moduleComponents]
+  exports: [moduleComponents],
+  entryComponents: [SidemenuComponent]
 })
 export class CoreModule { }
