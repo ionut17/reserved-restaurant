@@ -7,6 +7,7 @@ import { RouterModule, Router } from '@angular/router';
 import { CoreModule } from './shared/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
+import { SocketService } from './shared/services/socket.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { SidemenuModule, SidemenuService } from './shared/sidemenu';
     CoreModule,
     SidemenuModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
