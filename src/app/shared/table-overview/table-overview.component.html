@@ -1,6 +1,7 @@
 <ng-container *ngFor="let table of tables; let i = index">
 	<rs-table [table]="table"
 			  [selected]="isSelected(table)"
+			  [linked]="isSelected(table) && isLinked()"
 			  [disabled]="i==4"
 			  (click)="selectTable($event, table)"></rs-table>
 </ng-container>

@@ -8,3 +8,15 @@
 	align-items: center;
 	background-color: $light-1;
 }
+
+.entries-count{
+	width: 35px;
+	height: 35px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $accent-1;
+
+	font-size: 3rem;
+	margin-left: nth($margins, 1);
+}

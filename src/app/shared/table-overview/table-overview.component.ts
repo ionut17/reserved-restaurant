@@ -27,11 +27,15 @@ export class TableOverviewComponent implements OnInit {
     }
   }
 
-  isSelected(table: Table){
+  isSelected(table: Table):boolean{
     return this.tableManagerService.isSelected(table);
   }
 
-  selectTable(event: Event, table: Table){
+  isLinked():boolean{
+    return this.reservationManagerService.hasSelected();
+  }
+
+  selectTable(event: Event, table: Table):void{
     //Prevent menu hiding
     event.stopPropagation();
     event.preventDefault();

@@ -14,6 +14,8 @@ export class TableComponent implements OnInit {
 
   @Input() @HostBinding('class.is-disabled') disabled: boolean = false;
 
+  @Input() @HostBinding('class.is-linked') linked: boolean = false;
+
   constructor() { }
 
   ngOnInit() {

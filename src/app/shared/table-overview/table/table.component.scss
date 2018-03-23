@@ -13,10 +13,9 @@ $table-border-radius: 20px;
 
 	flex-direction: row;
 }
-:host(.is-selected){
+:host(.is-selected), :host(.is-linked){
 	figure:before{
 		background-color: $dark-2;
-		// background-color: $accent-1;
 	}
 	.table-number{
 		background-color: $accent-1;
@@ -30,11 +29,13 @@ $table-border-radius: 20px;
 		}
 	}
 }
-:host(.is-disabled){
-	cursor: default;
-	figure:before{
-		@include shadow(1);
+:host(.is-linked){
+	.table-number{
+		background-color: $yellow-1;
+		color: rgba(0,0,0,0.5);
 	}
+}
+:host(.is-disabled){
 	figure:after{
 		content: '';
 		background: $gradient-stripes;

@@ -1,12 +1,18 @@
 <rs-accordion [expanded]="true"
               id="reservations">
-  <div rs-accordion-title>Rezervari</div>
+  <div rs-accordion-title>
+    Rezervari
+    <div class='entries-count'>{{reservations.length}}</div>
+  </div>
   <rs-reservation-entry *ngFor="let reservation of reservations"
                         [reservation]="reservation"
                         [selected]="isSelected(reservation)"
                         (select)="selectReservation(reservation)"></rs-reservation-entry>
 </rs-accordion>
 <rs-accordion id="clients">
-  <div rs-accordion-title>Clienti</div>
+  <div rs-accordion-title>
+    Clienti
+    <div class='entries-count'>0</div>
+  </div>
   No clients
 </rs-accordion>
