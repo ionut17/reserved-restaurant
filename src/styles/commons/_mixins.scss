@@ -4,6 +4,26 @@
 	box-sizing: border-box;
 }
 
+%icon-scale{
+	transform: scale(1.1);
+}
+
+%filter-bright{
+	filter: brightness(105%);
+}
+
+@mixin ahocus(){
+	&:hover, &:focus, &:active{
+		@content;
+	}
+}
+
+@mixin hocus(){
+	&:hover, &:focus{
+		@content;
+	}
+}
+
 @mixin margin($level: 1){
 	margin: nth($margins, $level);
 }

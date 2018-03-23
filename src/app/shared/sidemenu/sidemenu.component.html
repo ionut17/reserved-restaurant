@@ -1,0 +1,11 @@
+<button class='close-btn' (click)="onClose()">
+  <rs-icon name="undo" size="2x"></rs-icon>
+</button>
+<ul class="sidemenu-btns">
+  <li *ngFor="let button of sidemenuButtons">
+    <rs-sidemenu-button [important]="button.important"
+                        [icon]="button.icon"
+                        [label]="button.label"
+                        (click)="button.clickCallback()"></rs-sidemenu-button>
+  </li>
+</ul>

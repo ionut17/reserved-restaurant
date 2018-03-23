@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Router } from '@angular/router';
 import { CoreModule } from './shared/core';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { AppService } from './app.service';
+import { SidemenuModule, SidemenuService } from './shared/sidemenu';
 
 @NgModule({
   declarations: [
@@ -16,9 +16,10 @@ import { AppService } from './app.service';
     BrowserModule,
     AppRoutingModule,
     OverlayModule,
-    CoreModule
+    CoreModule,
+    SidemenuModule
   ],
-  providers: [AppService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

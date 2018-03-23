@@ -1,9 +1,0 @@
-@import 'commons';
-
-:host{
-	@extend %component;
-	width: 250px;
-	height: 100vh;
-
-	background-color: transparentize($dark-2, 0.25);
-}

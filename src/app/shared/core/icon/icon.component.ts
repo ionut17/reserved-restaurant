@@ -13,7 +13,7 @@ export class IconComponent implements OnInit {
 
   get classes(){
     const sizeClass: string = `la-${this.size}`;
-    return `la la-${this.name} ${sizeClass}`;
+    return `icon la la-${this.name} ${sizeClass}`;
   }
 
   constructor() { }

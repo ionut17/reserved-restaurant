@@ -1,0 +1,44 @@
+@import 'commons';
+
+:host{
+	@extend %component;
+	@include shadow(3);
+	flex-direction: column;
+	width: 250px;
+	height: 100vh;
+
+	background-color: transparentize($dark-2, 0.25);
+}
+
+.close-btn{
+	width: 100%;
+	height: $header-height;
+	background: black;
+
+	@include ahocus{
+		rs-icon{
+			@extend %icon-scale;
+		}
+	}
+
+	rs-icon{
+		color: $light-1;
+		opacity: 0.5;
+	}
+}
+
+.sidemenu-btns{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	flex: 1;
+
+	li{
+		position: relative;
+		@include ahocus{
+			@extend %filter-bright;
+		}
+
+		margin-top: nth($margins, 2);
+	}
+}
