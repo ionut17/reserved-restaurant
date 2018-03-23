@@ -3,15 +3,61 @@
 :host{
 	@extend %component;
 	@include padding(2);
+	flex-direction: column;
+	background-color: $background;
+}
+
+.hour-wrapper, .table-wrapper{
+	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-items: flex-start;
-	align-content: flex-start;
+	width: 100%;
+}
 
-	background-color: $background;
+.table-wrapper{
+	flex-wrap: wrap;
+	align-content: flex-start;
 }
 
 rs-table{
 	@include margin(2);
+}
+
+//Hour wrapper
+.hour-wrapper{
+	padding: nth($paddings,2) nth($paddings, 3);
+}
+.timebox{
+	@include padding(2);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+
+	background-color: $dark-2;
+
+	&:after{
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 25px;
+		height: 5px;
+		background-color: $accent-1;
+	}
+
+	rs-icon{
+		color: $light-2;
+		margin-right: nth($margins, 1);
+	}
+	h4{
+		font-family: $font-family-title;
+		font-size: 5rem;
+		font-weight: 400;
+		color: $light-1;
+		user-select: none;
+	}
 }

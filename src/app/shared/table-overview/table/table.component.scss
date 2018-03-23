@@ -32,7 +32,7 @@ $table-border-radius: 20px;
 :host(.is-linked){
 	.table-number{
 		background-color: $yellow-1;
-		color: rgba(0,0,0,0.5);
+		color: rgba(0,0,0,0.75);
 	}
 }
 :host(.is-disabled){

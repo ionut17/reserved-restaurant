@@ -1,7 +1,15 @@
-<ng-container *ngFor="let table of tables; let i = index">
-	<rs-table [table]="table"
-			  [selected]="isSelected(table)"
-			  [linked]="isSelected(table) && isLinked()"
-			  [disabled]="i==4"
-			  (click)="selectTable($event, table)"></rs-table>
-</ng-container>
+<section class="hour-wrapper">
+	<section class="timebox">
+		<rs-icon name="clock-o" size="3x"></rs-icon>
+		<h4>12:45</h4>
+	</section>
+</section>
+<section class="table-wrapper">
+	<ng-container *ngFor="let table of tables; let i = index">
+		<rs-table [table]="table"
+					[selected]="isSelected(table)"
+					[linked]="isSelected(table) && isLinked()"
+					[disabled]="i==4"
+					(click)="selectTable($event, table)"></rs-table>
+	</ng-container>
+</section>

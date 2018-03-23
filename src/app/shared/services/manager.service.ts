@@ -15,8 +15,8 @@ export class ManagerService<T extends Item> {
 
 	selectedItem: T;
 
-	constructor(private sidemenuService: SidemenuService,
-				private sidemenuButtons: SidemenuButton[]) {
+	constructor(protected sidemenuService: SidemenuService,
+				protected sidemenuButtons: SidemenuButton[]) {
 		this.sidemenuService.onClose().subscribe(()=>{
 			this.deselect(false);
 		});
@@ -42,7 +42,6 @@ export class ManagerService<T extends Item> {
 		} else{
 			this.selectedItem = item;
 			this.selectedItemChange.emit(true);
-			console.log('sm', menuInteraction);
 			if (menuInteraction) this.sidemenuService.showMenu(this.sidemenuButtons);
 		}
 	}
