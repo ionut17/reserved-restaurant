@@ -6,6 +6,8 @@ $light-2: #BBBCBC;
 $dark-1: #585858;
 $dark-2: #1E1E1E;
 
+$background: #ECEFF1;
+
 //Specific colors
 $green-1: #37EE7D;
 $green-2: #1FB789;
@@ -19,3 +21,11 @@ $grey-2: #969797;
 $gradient-yellow: linear-gradient(to right, $yellow-1, $yellow-2);
 $gradient-green: linear-gradient(to right, $green-1, $green-2);
 $gradient-grey: linear-gradient(to right, $grey-1, $grey-2);
+
+$gradient-stripes: repeating-linear-gradient(
+	45deg,
+	$dark-2,
+	$dark-2 5px,
+	$light-1 5px,
+	$light-1 10px
+);

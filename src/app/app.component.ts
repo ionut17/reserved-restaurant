@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { SocketService } from './shared/services/socket.service';
+import { SidemenuService } from './shared/sidemenu';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,10 @@ import { SocketService } from './shared/services/socket.service';
 })
 export class AppComponent {
 
-  constructor(private socketService: SocketService){}
+  constructor(private sidemenuService: SidemenuService){}
+
+  @HostListener('document:click', ['$event']) clickedOutside($event){
+    this.sidemenuService.hideMenu();
+  }
 
 }

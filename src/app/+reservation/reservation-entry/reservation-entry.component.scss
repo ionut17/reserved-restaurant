@@ -19,7 +19,7 @@
 		background-color: rgba(0,0,0,0.15);
 	}
 }
-:host(.selected){
+:host(.is-selected){
 	.entry-content{
 		background-color: $yellow-1;
 	}

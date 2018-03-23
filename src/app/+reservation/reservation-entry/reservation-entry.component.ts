@@ -11,7 +11,7 @@ export class ReservationEntryComponent implements OnInit {
 
   @Input() reservation: Reservation;
 
-  @Input() @HostBinding('class.selected') selected: boolean = false;
+  @Input() @HostBinding('class.is-selected') selected: boolean = false;
 
   @Output() select: EventEmitter<any> = new EventEmitter();
 
@@ -20,7 +20,9 @@ export class ReservationEntryComponent implements OnInit {
   ngOnInit() {
   }
 
-  emitSelect(){
+  emitSelect(event: Event){
+    event.stopPropagation();
+    event.preventDefault();
     this.select.emit();
   }
 

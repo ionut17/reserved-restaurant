@@ -13,7 +13,6 @@
 		"header statusbar"
 		"sidebar content";
 
-	width: 100vw;
 	height: 100vh;
 }
 
@@ -35,4 +34,5 @@ rs-reservation-sidebar{
 
 rs-table-overview{
 	grid-area: content;
+	padding-right: $sidemenu-width;
 }

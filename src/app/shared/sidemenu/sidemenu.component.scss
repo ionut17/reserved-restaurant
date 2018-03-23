@@ -4,7 +4,7 @@
 	@extend %component;
 	@include shadow(3);
 	flex-direction: column;
-	width: 250px;
+	width: $sidemenu-width;
 	height: 100vh;
 
 	background-color: transparentize($dark-2, 0.25);

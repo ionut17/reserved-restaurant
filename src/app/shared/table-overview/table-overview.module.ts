@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TableOverviewComponent } from './table-overview.component';
 import { TableGroupComponent } from './table-group/table-group.component';
 import { TableComponent } from './table/table.component';
+import { TableManagerService } from './table-manager.service';
 
 const moduleComponents = [
   TableOverviewComponent,
@@ -14,6 +15,7 @@ const moduleComponents = [
   imports: [
     CommonModule
   ],
+  providers: [TableManagerService],
   declarations: [moduleComponents],
   exports: [moduleComponents]
 })

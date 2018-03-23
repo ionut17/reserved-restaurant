@@ -1,2 +1,6 @@
-<rs-table [table]="{number: 2, reservedHour: '13:05'}"></rs-table>
-<rs-table [table]="{number: 3}"></rs-table>
+<ng-container *ngFor="let table of tables; let i = index">
+	<rs-table [table]="table"
+			  [selected]="isSelected(table)"
+			  [disabled]="i==4"
+			  (click)="selectTable($event, table)"></rs-table>
+</ng-container>

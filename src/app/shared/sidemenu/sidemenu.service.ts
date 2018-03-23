@@ -25,10 +25,9 @@ export class SidemenuService {
   }
 
   showMenu(buttons: SidemenuButton[]):void{
-    if (!this.hasMenu()){
-      const attached: ComponentRef<SidemenuComponent> = this.overlayRef.attach(this.sidemenuPortal);
-      attached.instance.sidemenuButtons = buttons;
-    }
+    if (this.hasMenu()) this.overlayRef.detach();
+    const attached: ComponentRef<SidemenuComponent> = this.overlayRef.attach(this.sidemenuPortal);
+    attached.instance.sidemenuButtons = buttons;
   }
 
   hideMenu():void{

@@ -3,6 +3,7 @@ import * as _ from "lodash";
 
 import { Reservation } from '../../shared/model';
 import { ReservationManagerService } from '../reservation-manager.service';
+import { TableManagerService } from '../../shared/table-overview/table-manager.service';
 
 @Component({
   selector: 'rs-reservation-sidebar',
@@ -13,7 +14,8 @@ export class ReservationSidebarComponent implements OnInit {
 
   reservations: Reservation[] = [];
 
-  constructor(private reservationManagerService: ReservationManagerService) { }
+  constructor(private reservationManagerService: ReservationManagerService,
+              private tableManagerService: TableManagerService) { }
 
   ngOnInit() {
     let date: Date = new Date();
@@ -31,11 +33,16 @@ export class ReservationSidebarComponent implements OnInit {
   }
 
   isSelected(reservation: Reservation):boolean{
-    return reservation ? this.reservationManagerService.isSelected(reservation) : false;
+    return this.reservationManagerService.isSelected(reservation);
   }
 
   selectReservation(reservation: Reservation):void{
-    this.reservationManagerService.selectReservation(reservation);
+    //Deselect any table selected
+    this.tableManagerService.deselect(false);
+    //Select the assigned table without the menu
+    this.tableManagerService.select({id:'id1',number:1});
+    //Select the reservation with the menu
+    this.reservationManagerService.select(reservation);
   }
 
 }

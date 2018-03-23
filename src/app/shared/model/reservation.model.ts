@@ -1,5 +1,6 @@
-export class Reservation{
-	id: string;
+import { Item } from "./item.model";
+
+export class Reservation extends Item{
 	name: string;
 	people: number;
 	startTime: Date;

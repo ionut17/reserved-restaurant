@@ -12,7 +12,7 @@
       </li>
     </ul>
 </section>
-<section class="entry-status" (click)="emitSelect()">
+<section class="entry-status" (click)="emitSelect($event)">
   <rs-icon [name]="selected ? 'undo' : 'angle-right'"
            size="3x"></rs-icon>
 </section>

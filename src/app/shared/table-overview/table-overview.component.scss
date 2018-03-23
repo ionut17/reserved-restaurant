@@ -2,4 +2,16 @@
 
 :host{
 	@extend %component;
+	@include padding(2);
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+
+	background-color: $background;
+}
+
+rs-table{
+	@include margin(2);
 }

@@ -13,6 +13,35 @@ $table-border-radius: 20px;
 
 	flex-direction: row;
 }
+:host(.is-selected){
+	figure:before{
+		background-color: $dark-2;
+		// background-color: $accent-1;
+	}
+	.table-number{
+		background-color: $accent-1;
+	}
+	.table-content{
+		span{
+			color: $light-2;
+		}
+		h4{
+			color: $light-1;
+		}
+	}
+}
+:host(.is-disabled){
+	cursor: default;
+	figure:before{
+		@include shadow(1);
+	}
+	figure:after{
+		content: '';
+		background: $gradient-stripes;
+
+		opacity: 0.25;
+	}
+}
 
 .table-number, .table-content{
 	user-select: none;
@@ -78,23 +107,27 @@ figure{
 	z-index: 0;
 
 	@include hocus{
-		&:after{
+		&:before{
 			@include shadow(2);
 		}
 	}
 
-	&:after{
-		@include shadow(1);
-		content: '';
+	&:before, &:after{
 		position: absolute;
 		top: 10px;
 		left: 10px;
 		width: 180px;
 		height: 120px;
 
-		background-color: $light-1;
 		border-radius: $table-border-radius;
 		z-index: 1;
+	}
+
+	&:before{
+		@include shadow(1);
+		content: '';
+
+		background-color: $light-1;
 	}
 
 	.chair{

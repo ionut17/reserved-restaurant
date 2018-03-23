@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding} from '@angular/core';
 import { Table } from '../../model';
 
 @Component({
@@ -9,6 +9,10 @@ import { Table } from '../../model';
 export class TableComponent implements OnInit {
 
   @Input() table: Table;
+
+  @Input() @HostBinding('class.is-selected') selected: boolean = false;
+
+  @Input() @HostBinding('class.is-disabled') disabled: boolean = false;
 
   constructor() { }
 
