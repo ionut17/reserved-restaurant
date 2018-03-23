@@ -8,4 +8,6 @@ import { SocketService } from './shared/services/socket.service';
 })
 export class AppComponent {
 
+  constructor(private socketService: SocketService){}
+
 }

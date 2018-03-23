@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './shared/core';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
+import { SocketService } from './shared/services/socket.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:8080/reservations', options: {} };
 
@@ -24,7 +25,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080/reservations', opti
     CoreModule,
     SidemenuModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
