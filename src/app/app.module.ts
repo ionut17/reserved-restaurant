@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
+import { OverlayModule } from '@angular/cdk/overlay';
+
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule, Router } from '@angular/router';
 import { CoreModule } from './shared/core';
-import { OverlayModule } from '@angular/cdk/overlay';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
-import { SocketService } from './shared/services/socket.service';
+
+const config: SocketIoConfig = { url: 'http://localhost:8080/reservations', options: {} };
 
 @NgModule({
   declarations: [
@@ -16,11 +19,12 @@ import { SocketService } from './shared/services/socket.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SocketIoModule.forRoot(config),
     OverlayModule,
     CoreModule,
     SidemenuModule
   ],
-  providers: [SocketService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
