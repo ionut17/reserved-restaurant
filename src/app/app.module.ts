@@ -5,6 +5,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './shared/core';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
 import { SocketService } from './shared/services/socket.service';
@@ -17,6 +18,7 @@ import { SocketService } from './shared/services/socket.service';
     BrowserModule,
     AppRoutingModule,
     OverlayModule,
+    HttpClientModule,
     CoreModule,
     SidemenuModule
   ],

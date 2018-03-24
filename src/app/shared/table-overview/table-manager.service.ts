@@ -11,4 +11,14 @@ export class TableManagerService extends ManagerService<Table>{
 		super(sidemenuService, sidemenuButtons);
 	}
 
+	select(item: Table, menuInteraction:boolean = true):void{
+		if (this.isSelected(item)){
+			this.deselect(menuInteraction);
+		} else{
+			this.selectedItem = item;
+			this.selectedItemChange.emit(true);
+			if (menuInteraction) this.sidemenuService.showMenu(this.sidemenuButtons);
+		}
+	}
+
 }

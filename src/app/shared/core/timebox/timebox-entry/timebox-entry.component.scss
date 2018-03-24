@@ -1,0 +1,36 @@
+@import 'commons';
+
+:host{
+	@extend %component;
+	@include padding(2);
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	width: 210px;
+
+	background-color: $dark-2;
+
+	&:after{
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 25px;
+		height: 5px;
+		background-color: $accent-1;
+	}
+
+	rs-icon{
+		color: $light-2;
+		margin-right: nth($margins, 1);
+	}
+	h4{
+		font-family: $font-family-title;
+		font-size: 5rem;
+		font-weight: 400;
+		color: $light-1;
+		user-select: none;
+	}
+}

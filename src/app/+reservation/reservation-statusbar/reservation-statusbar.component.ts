@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Restaurant } from '../../shared/model';
 
 @Component({
   selector: 'rs-reservation-statusbar',
   templateUrl: './reservation-statusbar.component.html',
   styleUrls: ['./reservation-statusbar.component.scss']
 })
-export class ReservationStatusbarComponent implements OnInit {
+export class ReservationStatusbarComponent {
 
-  ngOnInit() {
-  }
+  @Input() restaurant: Restaurant;
 
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RestaurantService } from '../shared/services/restaurant.service';
+import { SocketService } from '../shared/services/socket.service';
+import { Restaurant } from '../shared/model';
 
 @Component({
   selector: 'rs-reservation',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationComponent implements OnInit {
 
-  constructor() { }
+  restaurant: Restaurant;
+
+  constructor(private restaurantService: RestaurantService){
+    this.restaurantService.restaurantChange().subscribe((res:Restaurant)=>{
+      console.log(res);
+      this.restaurant = res;
+    });
+  }
 
   ngOnInit() {
   }

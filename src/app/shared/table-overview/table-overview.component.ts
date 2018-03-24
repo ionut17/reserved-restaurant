@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Table } from '../model';
 import { SidemenuService } from '../sidemenu';
 import { sidemenuButtons } from './model';
@@ -12,7 +12,7 @@ import { ReservationManagerService } from '../../+reservation/reservation-manage
 })
 export class TableOverviewComponent implements OnInit {
 
-  tables: Table[] = [];
+  @Input() tables: Table[] = [];
 
   constructor(private tableManagerService: TableManagerService,
               private reservationManagerService: ReservationManagerService) { }
@@ -22,7 +22,7 @@ export class TableOverviewComponent implements OnInit {
       this.tables.push({
         id: `id${i}`,
         number: i,
-        reservedHour: i%4==0? `0${1}:00` : undefined
+        capacity: 3
       });
     }
   }

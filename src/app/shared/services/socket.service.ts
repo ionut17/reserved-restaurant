@@ -7,7 +7,7 @@ import * as SockJS from 'sockjs-client';
 export class SocketService {
 
 	// private serverUrl = 'http://localhost:8080/reservations'
-	private serverUrl = 'http://localhost:8080/reservations';
+	private serverUrl = 'http://rs-api:8080/reservations';
 	private title = 'WebSockets chat';
 	private stompClient;
 
