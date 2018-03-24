@@ -24,7 +24,6 @@ export class TableOverviewComponent implements OnInit {
   ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes['tables'] && this.tables) {
       this.tables.sort((a: Table, b: Table) => a.number - b.number);
     }

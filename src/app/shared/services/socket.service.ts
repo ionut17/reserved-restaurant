@@ -15,15 +15,9 @@ export class SocketService {
 		let ws = new SockJS(this.serverUrl);
 		this.stompClient = Stomp.over(ws);
 		let self = this;
-		console.log('trying to connect');
 		this.stompClient.connect({
 			transports: ['websocket']
 		  }, function (frame) {
-			console.log('connected');
-			console.log(frame);
-			// self.stompClient.subscribe("/reservations", (message) => {
-
-			// });
 		});
 	}
 

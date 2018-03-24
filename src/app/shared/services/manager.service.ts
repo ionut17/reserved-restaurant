@@ -1,11 +1,12 @@
-import { Injectable, Output, EventEmitter } from "@angular/core";
+import { Injectable, Output, EventEmitter, OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs/Subscription";
 import { SidemenuService, SidemenuButton } from "../sidemenu";
 import { Table, Item } from "../model";
 
 /**
  * Abstract Manager service which provides generic selection functionality
  */
-export class ManagerService<T extends Item> {
+export class ManagerService<T extends Item> implements OnDestroy {
 
 	/**
 	 * Emits events when the a reservation is toggled
@@ -14,6 +15,7 @@ export class ManagerService<T extends Item> {
 	@Output() selectedItemChange: EventEmitter<boolean> = new EventEmitter();
 
 	selectedItem: T;
+	private sidemenuCloseSubscription: Subscription;
 
 	constructor(protected sidemenuService: SidemenuService,
 				protected sidemenuButtons: SidemenuButton[]) {
@@ -24,6 +26,12 @@ export class ManagerService<T extends Item> {
 		this.sidemenuButtons.forEach((button:SidemenuButton)=>{
 			button.clickCallback = button.clickCallback.bind(self);
 		});
+	}
+
+	ngOnDestroy(){
+		if (this.sidemenuCloseSubscription){
+			this.sidemenuCloseSubscription.unsubscribe();
+		}
 	}
 
 	hasSelected():boolean{
