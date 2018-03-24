@@ -1,4 +1,4 @@
-import { WeekDay } from './week-day.model';
+import { WeekDay } from './week-day.enum';
 import { TimeInterval } from './time-interval.model';
 import { Item } from "../item.model";
 import { Table } from "../table.model";

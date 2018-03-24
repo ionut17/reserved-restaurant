@@ -8,8 +8,12 @@ export class ApiService<T extends Item>{
 
 	protected apiPath: string;
 
-	constructor(private http: HttpClient, servicePath: string){
+	constructor(protected http: HttpClient, servicePath: string){
 		this.apiPath = `${environment.apiEndpoint}/${environment.apiVersion}/${servicePath}`;
+	}
+
+	getById(id: string):Observable<T>{
+		return this.http.get(`${this.apiPath}/${id}`) as Observable<T>;
 	}
 
 	getAll():Observable<Array<T>>{

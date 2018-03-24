@@ -1,6 +1,6 @@
 <section class="entry-content"
          [class.selected]="selected">
-    <h3 class="reservation-name">{{ reservation.name }}</h3>
+    <h3 class="reservation-name">{{ reservation.client.firstName }} {{ reservation.client.lastName }}</h3>
     <ul class="reservation-details">
       <li>
         <rs-icon name="users" size="2x"></rs-icon>

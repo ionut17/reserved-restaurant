@@ -1,4 +1,6 @@
 <rs-header></rs-header>
 <rs-reservation-statusbar [restaurant]="restaurant"></rs-reservation-statusbar>
-<rs-reservation-sidebar></rs-reservation-sidebar>
-<rs-table-overview></rs-table-overview>
+<rs-reservation-sidebar [reservations]="reservations"
+						[restaurant]="restaurant"></rs-reservation-sidebar>
+<rs-table-overview  [tables]="restaurant?.tables"
+					[reservations]="reservations"></rs-table-overview>

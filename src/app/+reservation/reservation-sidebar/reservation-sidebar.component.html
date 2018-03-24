@@ -2,9 +2,9 @@
               id="reservations">
   <div rs-accordion-title>
     Rezervari
-    <div class='entries-count'>{{reservations.length}}</div>
+    <div class='entries-count'>{{internalReservations?.length}}</div>
   </div>
-  <rs-reservation-entry *ngFor="let reservation of reservations"
+  <rs-reservation-entry *ngFor="let reservation of internalReservations"
                         [reservation]="reservation"
                         [selected]="isSelected(reservation)"
                         (select)="selectReservation(reservation)"></rs-reservation-entry>

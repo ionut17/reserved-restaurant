@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges} from '@angular/core';
 import * as _ from "lodash";
 
-import { Reservation } from '../../shared/model';
+import { Reservation, ReservationStatus, Restaurant, Table } from '../../shared/model';
 import { ReservationManagerService } from '../reservation-manager.service';
 import { TableManagerService } from '../../shared/table-overview/table-manager.service';
 
@@ -12,24 +12,27 @@ import { TableManagerService } from '../../shared/table-overview/table-manager.s
 })
 export class ReservationSidebarComponent implements OnInit {
 
-  reservations: Reservation[] = [];
+  @Input() reservations: Reservation[] = [];
+  @Input() restaurant: Restaurant;
+  private internalReservations: Reservation[] = [];
 
   constructor(private reservationManagerService: ReservationManagerService,
               private tableManagerService: TableManagerService) { }
 
   ngOnInit() {
-    let date: Date = new Date();
-    date.setHours(12);
-    date.setMinutes(0);
-    for (var i=0;i<3;i++){
-      this.reservations.push({
-        id: _.uniqueId(),
-        name: 'Ionut Iacob',
-        people: 2,
-        startTime: date,
-        endTime: date
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if (changes["reservations"] && this.reservations){
+      this.internalReservations = this.reservations.filter((entry: Reservation)=>{
+        return entry.status == ReservationStatus.Pending;
       });
-    };
+      this.internalReservations.sort((a:Reservation, b:Reservation)=>{
+        if (a.startTime < b.startTime) return -1;
+        if (a.startTime > b.startTime) return 1;
+        return 0;
+      });
+    }
   }
 
   isSelected(reservation: Reservation):boolean{
@@ -39,8 +42,15 @@ export class ReservationSidebarComponent implements OnInit {
   selectReservation(reservation: Reservation):void{
     //Deselect any table selected
     this.tableManagerService.deselect(false);
-    //Select the assigned table without the menu
-    this.tableManagerService.select({id:'id1',number:1});
+    //Select the assigned tables without the menu
+    const selectedTables: Table[] = this.restaurant.tables.filter((table:Table)=>{
+      return reservation.tables.indexOf(table.id) > -1;
+    });
+    this.restaurant.tables.forEach((table:Table)=>{
+      if (reservation.tables.indexOf(table.id) > -1){
+        this.tableManagerService.select(table);
+      }
+    });
     //Select the reservation with the menu
     this.reservationManagerService.select(reservation);
   }

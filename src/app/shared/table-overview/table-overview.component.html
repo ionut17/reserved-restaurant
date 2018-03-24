@@ -6,7 +6,7 @@
 		<rs-table [table]="table"
 					[selected]="isSelected(table)"
 					[linked]="isSelected(table) && isLinked()"
-					[disabled]="i==4"
+					[disabled]="isDisabled(table)"
 					(click)="selectTable($event, table)"></rs-table>
 	</ng-container>
 </section>
