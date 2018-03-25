@@ -1,26 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material';
+
 import { HeaderComponent } from './header/header.component';
 import { LogoComponent } from './logo/logo.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { IconComponent } from './icon/icon.component';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { TimeboxComponent } from './timebox/timebox.component';
-import { TimeboxEntryComponent } from './timebox/timebox-entry/timebox-entry.component';
+import { DatetimePickerComponent } from './datetime-picker/datetime-picker.component';
+import { TimePickerComponent } from './time-picker/time-picker.component';
 
 const moduleComponents = [
   HeaderComponent,
   LogoComponent,
   AccordionComponent,
   IconComponent,
-  TimeboxComponent
+  TimePickerComponent,
+  DatetimePickerComponent
 ]
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    MatDatepickerModule
   ],
-  declarations: [moduleComponents, TimeboxEntryComponent],
+  declarations: [moduleComponents],
   exports: [moduleComponents]
 })
 export class CoreModule { }

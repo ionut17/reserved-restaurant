@@ -5,6 +5,7 @@ import 'rxjs/add/observable/interval';
 
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { TimeboxService } from './timebox.service';
 
 @Component({
   selector: 'rs-timebox',
@@ -14,9 +15,11 @@ import * as moment from 'moment';
 export class TimeboxComponent implements OnInit, OnDestroy {
 
   private currentTime: Moment = moment();
+  private selectedTime: Moment = moment('2013-02-08 11:30');
   private intervalSubscription: Subscription;
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone,
+              private timeboxService: TimeboxService) { }
 
   /**
    * Create an Observable timer which updates every second
@@ -29,7 +32,12 @@ export class TimeboxComponent implements OnInit, OnDestroy {
       self.intervalSubscription = Observable.interval(1000).subscribe(x => {
         const newDate: Moment = moment();
         if (newDate.seconds() == 0){
-          self.ngZone.run(()=>self.currentTime = newDate);
+          self.ngZone.run(()=>{
+            if(this.timeboxService.isSelected(self.currentTime)){
+              this.timeboxService.select(newDate);
+            }
+            self.currentTime = newDate;
+          });
         }
       });
     });
@@ -39,6 +47,16 @@ export class TimeboxComponent implements OnInit, OnDestroy {
     if (this.intervalSubscription){
       this.intervalSubscription.unsubscribe();
     }
+  }
+
+  openTimePicker():void{
+    this.selectedTime = moment('2013-02-08 11:30');
+    this.timeboxService.select(this.selectedTime);
+  }
+
+  clearSelectedTime():void{
+    this.selectedTime = undefined;
+    this.timeboxService.select(this.currentTime);
   }
 
 }

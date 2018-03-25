@@ -5,6 +5,7 @@ import { TableGroupComponent } from './table-group/table-group.component';
 import { TableComponent } from './table/table.component';
 import { TableManagerService } from './table-manager.service';
 import { CoreModule } from '../core';
+import { TimeboxModule } from '../timebox/timebox.module';
 
 const moduleComponents = [
   TableOverviewComponent,
@@ -15,7 +16,8 @@ const moduleComponents = [
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule
+    CoreModule,
+    TimeboxModule
   ],
   providers: [TableManagerService],
   declarations: [moduleComponents],

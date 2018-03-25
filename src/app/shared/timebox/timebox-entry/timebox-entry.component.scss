@@ -2,12 +2,12 @@
 
 :host{
 	@extend %component;
-	@include padding(2);
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	position: relative;
 	width: 210px;
+	height: 100px;
 
 	background-color: $dark-2;
 
@@ -26,11 +26,34 @@
 		color: $light-2;
 		margin-right: nth($margins, 1);
 	}
+
+}
+:host(.selected){
+	background-color: $accent-1;
+
+	rs-icon, .time-wrapper h5{
+		color: rgba(255,255,255,0.75);
+	}
+}
+
+.time-wrapper{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	h4, h5{
+		font-weight: 400;
+		user-select: none;
+	}
+
 	h4{
 		font-family: $font-family-title;
 		font-size: 5rem;
-		font-weight: 400;
 		color: $light-1;
-		user-select: none;
+	}
+	h5{
+		font-size: 2rem;
+		color: $light-2;
 	}
 }
