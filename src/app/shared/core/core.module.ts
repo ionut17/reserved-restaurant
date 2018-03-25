@@ -10,6 +10,8 @@ import { IconComponent } from './icon/icon.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DatetimePickerComponent } from './datetime-picker/datetime-picker.component';
 import { TimePickerComponent } from './time-picker/time-picker.component';
+import { PickerComponent } from './shared/picker/picker.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 
 const moduleComponents = [
   HeaderComponent,
@@ -17,7 +19,8 @@ const moduleComponents = [
   AccordionComponent,
   IconComponent,
   TimePickerComponent,
-  DatetimePickerComponent
+  DatetimePickerComponent,
+  DatePickerComponent
 ]
 
 @NgModule({
@@ -26,7 +29,7 @@ const moduleComponents = [
     FormsModule,
     MatDatepickerModule
   ],
-  declarations: [moduleComponents],
+  declarations: [moduleComponents, PickerComponent],
   exports: [moduleComponents]
 })
 export class CoreModule { }

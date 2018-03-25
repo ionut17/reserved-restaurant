@@ -1,12 +1,20 @@
-<section class="hour-picker" *ngIf="step==0">
-  <ng-container *ngFor="let hour of availableHours">
-    <figure (click)="selectHour(hour)"
-            class='entry'>{{hour}}</figure>
-  </ng-container>
-</section>
-<section class="minute-picker" *ngIf="step==1">
-  <ng-container *ngFor="let minute of availableMinutes">
-    <figure (click)="selectMinute(minute)"
-            class='entry'>{{minute}}</figure>
-  </ng-container>
-</section>
+<rs-picker>
+  <section picker-header>
+    <rs-icon name="clock-o"></rs-icon>
+    {{formattedTime}}
+  </section>
+  <section picker-content>
+    <section class="hour-picker" *ngIf="step==0">
+      <ng-container *ngFor="let hour of availableHours">
+        <figure (click)="selectHour(hour)"
+                class='entry'>{{hour}}</figure>
+      </ng-container>
+    </section>
+    <section class="minute-picker" *ngIf="step==1">
+      <ng-container *ngFor="let minute of availableMinutes">
+        <figure (click)="selectMinute(minute)"
+                class='entry'>{{minute}}</figure>
+      </ng-container>
+    </section>
+  </section>
+</rs-picker>

@@ -24,6 +24,10 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
   private tempHour: number;
   private step: 0 | 1 | 2;
 
+  get formattedTime():string{
+    return this.value ? this.value.format('HH:mm') : "";
+  }
+
   constructor() {
     super();
   }

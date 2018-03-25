@@ -1,0 +1,33 @@
+@import 'commons';
+
+$picker-border-color: rgb(210, 210, 210);
+
+:host{
+	@extend %component;
+	@include shadow(1);
+	flex-direction: column;
+}
+
+.picker-header{
+	@include padding(2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 70px;
+	box-sizing: border-box;
+
+	background-color: $light-1;
+	border-bottom: 1px solid $picker-border-color;
+	font-size: 3rem;
+
+	::ng-deep rs-icon{
+		font-size: 3rem;
+		color: $dark-1;
+	}
+}
+
+.picker-content{
+	background-color: $picker-border-color;
+	font-family: $font-family-title;
+	flex: 1;
+}

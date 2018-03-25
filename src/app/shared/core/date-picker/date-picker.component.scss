@@ -1,0 +1,11 @@
+@import 'commons';
+
+:host{
+	@extend %component;
+}
+
+mat-calendar{
+	//TODO remove display none
+	// display: none !important;
+	background-color: $light-2;
+}

@@ -1,0 +1,10 @@
+<rs-picker>
+  <section picker-header>
+    {{formattedDate}}
+  </section>
+  <section picker-content>
+    <mat-calendar [minDate]="minDate"
+                  startView="year"
+                  (selectedChange)="onCalendarChange($event)"></mat-calendar>
+  </section>
+</rs-picker>
