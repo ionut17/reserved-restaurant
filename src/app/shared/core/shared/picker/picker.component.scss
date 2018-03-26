@@ -6,6 +6,7 @@ $picker-border-color: rgb(210, 210, 210);
 	@extend %component;
 	@include shadow(1);
 	flex-direction: column;
+	font-family: $font-family-title;
 }
 
 .picker-header{
@@ -16,18 +17,30 @@ $picker-border-color: rgb(210, 210, 210);
 	height: 70px;
 	box-sizing: border-box;
 
-	background-color: $light-1;
+	background-color: $light-2;
 	border-bottom: 1px solid $picker-border-color;
-	font-size: 3rem;
+	font-size: 4rem;
 
 	::ng-deep rs-icon{
-		font-size: 3rem;
+		font-size: 4rem;
 		color: $dark-1;
 	}
 }
 
 .picker-content{
-	background-color: $picker-border-color;
-	font-family: $font-family-title;
+	background-color: $light-1;
 	flex: 1;
+}
+
+.save{
+	@include padding(2);
+	background-color: $dark-2;
+	color: $light-1;
+	border: none;
+	border-top: 1px solid $picker-border-color;
+	font-family: $font-family-text;
+
+	&:hover{
+		background-color: $accent-1;
+	}
 }

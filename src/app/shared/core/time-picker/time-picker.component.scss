@@ -1,14 +1,31 @@
 @import 'commons';
 
+$picker-border-color: rgb(210, 210, 210);
+
 :host{
 	@extend %component;
 }
 
-.hour-picker, .minute-picker{
+h5{
+	@include padding(2);
+	padding-bottom: nth($paddings, 1);
+	color: $dark-1;
+	font-size: 2rem;
+	font-weight: 700;
+	font-family: $font-family-text;
+	text-transform: uppercase;
+}
+
+.time-picker{
+	@include padding(2);
 	display: grid;
-	grid-template-columns: repeat(4, 80px);
+	grid-template-columns: repeat(8, 60px);
 	grid-auto-rows: 60px;
-	grid-gap: 1px;
+	grid-gap: 10px;
+
+	&:first-of-type{
+		border-bottom: 1px solid $picker-border-color;
+	}
 
 	.entry{
 		display: flex;
@@ -17,15 +34,18 @@
 
 		font-size: 3rem;
 		cursor: pointer;
-		background-color: $light-2;
+		background-color: transparent;
 		color: $dark-2;
 		user-select: none;
+		border-radius: 50%;
+		box-sizing: border-box;
 
-		@include hocus{
+		&.selected{
 			background-color: $dark-2;
 			color: $light-1;
 		}
-		&:active{
+
+		@include ahocus{
 			background-color: $accent-1;
 			color: $light-1;
 		}

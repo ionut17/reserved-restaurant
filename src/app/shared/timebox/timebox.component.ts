@@ -15,7 +15,7 @@ import { TimeboxService } from './timebox.service';
 export class TimeboxComponent implements OnInit, OnDestroy {
 
   private currentTime: Moment = moment();
-  private selectedTime: Moment = moment('2013-02-08 11:30');
+  private selectedTime: Moment = moment();
   private intervalSubscription: Subscription;
 
   constructor(private ngZone: NgZone,
@@ -50,7 +50,7 @@ export class TimeboxComponent implements OnInit, OnDestroy {
   }
 
   openTimePicker():void{
-    this.selectedTime = moment('2013-02-08 11:30');
+    this.selectedTime = moment();
     this.timeboxService.select(this.selectedTime);
   }
 

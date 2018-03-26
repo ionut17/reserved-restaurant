@@ -19,3 +19,15 @@
 rs-timebox-entry.normal, .close-selection{
 	cursor: pointer;
 }
+
+.custom-time{
+	display: flex;
+	flex-direction: row;
+	position: relative;
+}
+
+rs-time-picker{
+	position: absolute;
+	top: 100%;
+	left: 0;
+}

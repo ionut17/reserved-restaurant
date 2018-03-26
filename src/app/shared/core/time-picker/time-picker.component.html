@@ -1,18 +1,22 @@
-<rs-picker>
+<rs-picker (save)="onSave()">
   <section picker-header>
     <rs-icon name="clock-o"></rs-icon>
     {{formattedTime}}
   </section>
   <section picker-content>
-    <section class="hour-picker" *ngIf="step==0">
+    <h5>ORA</h5>
+    <section class="time-picker">
       <ng-container *ngFor="let hour of availableHours">
-        <figure (click)="selectHour(hour)"
+        <figure [class.selected]="isHourSelected(hour)"
+                (click)="selectHour(hour)"
                 class='entry'>{{hour}}</figure>
       </ng-container>
     </section>
-    <section class="minute-picker" *ngIf="step==1">
+    <h5>MINUT</h5>
+    <section class="time-picker">
       <ng-container *ngFor="let minute of availableMinutes">
-        <figure (click)="selectMinute(minute)"
+        <figure [class.selected]="isMinuteSelected(minute)"
+                (click)="selectMinute(minute)"
                 class='entry'>{{minute}}</figure>
       </ng-container>
     </section>

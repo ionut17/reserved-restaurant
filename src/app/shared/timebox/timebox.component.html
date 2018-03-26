@@ -1,11 +1,11 @@
 <rs-timebox-entry [time]="currentTime"
 				  (click)="openTimePicker()"></rs-timebox-entry>
-<ng-container *ngIf="selectedTime">
+<section class="custom-time" *ngIf="selectedTime">
 	<rs-timebox-entry [time]="selectedTime"
 					  type="selected"></rs-timebox-entry>
 	<section class="close-selection"
 			 (click)="clearSelectedTime()">
 		<rs-icon name="undo" size="2x"></rs-icon>
 	</section>
-</ng-container>
-<rs-datetime-picker></rs-datetime-picker>
+	<rs-time-picker [(ngModel)]="selectedTime"></rs-time-picker>
+</section>

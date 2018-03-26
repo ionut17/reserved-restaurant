@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 import { ValueAccessorBase } from '../shared';
 
 export const CUSTOM_TIMEPICKER_CONTROL_VALUE_ACCESSOR: any = {
@@ -21,11 +22,11 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
   availableHours: number[] = [];
   availableMinutes: number[] = [];
 
-  private tempHour: number;
   private step: 0 | 1 | 2;
+  private tempHour: Moment = moment();
 
   get formattedTime():string{
-    return this.value ? this.value.format('HH:mm') : "";
+    return this.tempHour ? this.tempHour.format('HH:mm') : "";
   }
 
   constructor() {
@@ -43,14 +44,26 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
   }
 
   selectHour(hour:number):void{
-    this.tempHour = hour;
+    this.tempHour.hour(hour);
     this.step = 1;
   }
 
+  isHourSelected(hour:number):boolean{
+    return this.tempHour ? _.isEqual(hour, this.tempHour.hours()) : false;
+  }
+
   selectMinute(minute:number):void{
-    this.value.hour(this.tempHour);
-    this.value.minute(minute);
+    this.tempHour.minute(minute);
     this.step = 0;
+  }
+
+  isMinuteSelected(minute:number):boolean{
+    return this.tempHour ? _.isEqual(minute, this.tempHour.minutes()) : false;
+  }
+
+  onSave(){
+    this.value.hour(this.tempHour.hours());
+    this.value.minute(this.tempHour.minutes());
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'rs-picker',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PickerComponent implements OnInit {
 
+  @Output() save:EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSave() {
+    this.save.emit();
   }
 
 }
