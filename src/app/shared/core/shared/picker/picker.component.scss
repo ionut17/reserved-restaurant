@@ -16,6 +16,7 @@ $picker-border-color: rgb(210, 210, 210);
 	align-items: center;
 	height: 70px;
 	box-sizing: border-box;
+	position: relative;
 
 	background-color: $light-2;
 	border-bottom: 1px solid $picker-border-color;
@@ -24,6 +25,14 @@ $picker-border-color: rgb(210, 210, 210);
 	::ng-deep rs-icon{
 		font-size: 4rem;
 		color: $dark-1;
+	}
+
+	.close-icon{
+		position: absolute;
+		top: 50%;
+		right: nth($margins,2);
+		transform: translateY(-50%);
+		cursor: pointer;
 	}
 }
 

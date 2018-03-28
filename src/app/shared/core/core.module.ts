@@ -30,6 +30,7 @@ const moduleComponents = [
     MatDatepickerModule
   ],
   declarations: [moduleComponents, PickerComponent],
+  entryComponents: [TimePickerComponent],
   exports: [moduleComponents]
 })
 export class CoreModule { }

@@ -1,9 +1,12 @@
-import { Component, OnInit, Input, Output, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Output, forwardRef, EventEmitter, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { ValueAccessorBase } from '../shared';
+import { Openable } from '../../services/interfaces';
+import { PickerComponent } from '../shared/picker/picker.component';
 
 export const CUSTOM_TIMEPICKER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -17,7 +20,11 @@ export const CUSTOM_TIMEPICKER_CONTROL_VALUE_ACCESSOR: any = {
   styleUrls: ['./time-picker.component.scss'],
   providers: [CUSTOM_TIMEPICKER_CONTROL_VALUE_ACCESSOR]
 })
-export class TimePickerComponent extends ValueAccessorBase<Moment> implements OnInit {
+export class TimePickerComponent extends ValueAccessorBase<Moment> implements OnInit, Openable {
+
+  @ViewChild(PickerComponent) picker: PickerComponent;
+  @Output() save: Subject<any>;
+  @Output() close: Subject<any>;
 
   availableHours: number[] = [];
   availableMinutes: number[] = [];
@@ -34,6 +41,7 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
   }
 
   ngOnInit() {
+    //Init
     this.step = 0;
     for (let i=8;i<=23;i++){
       this.availableHours.push(i);
@@ -41,6 +49,11 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
     for (let i=0;i<60;i+=15){
       this.availableMinutes.push(i);
     }
+  }
+
+  ngAfterContentInit() {
+    this.save = this.picker.save;
+    this.close = this.picker.close;
   }
 
   selectHour(hour:number):void{

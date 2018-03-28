@@ -2,10 +2,12 @@ import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
-
 import { Moment } from 'moment';
 import * as moment from 'moment';
+
 import { TimeboxService } from './timebox.service';
+import { PopupService } from '../services/popup.service';
+import { TimePickerComponent } from '../core/time-picker/time-picker.component';
 
 @Component({
   selector: 'rs-timebox',
@@ -15,11 +17,12 @@ import { TimeboxService } from './timebox.service';
 export class TimeboxComponent implements OnInit, OnDestroy {
 
   private currentTime: Moment = moment();
-  private selectedTime: Moment = moment();
+  private selectedTime: Moment;
   private intervalSubscription: Subscription;
 
   constructor(private ngZone: NgZone,
-              private timeboxService: TimeboxService) { }
+              private timeboxService: TimeboxService,
+              private popupService: PopupService) { }
 
   /**
    * Create an Observable timer which updates every second
@@ -52,6 +55,7 @@ export class TimeboxComponent implements OnInit, OnDestroy {
   openTimePicker():void{
     this.selectedTime = moment();
     this.timeboxService.select(this.selectedTime);
+    this.popupService.show(TimePickerComponent);
   }
 
   clearSelectedTime():void{

@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './shared/core';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
 import { SocketService } from './shared/services/socket.service';
+import { PopupService } from './shared/services/popup.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { SocketService } from './shared/services/socket.service';
     CoreModule,
     SidemenuModule
   ],
-  providers: [SocketService],
+  providers: [PopupService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
