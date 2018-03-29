@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { TimeboxService } from './timebox.service';
 import { PopupService } from '../services/popup.service';
 import { TimePickerComponent } from '../core/time-picker/time-picker.component';
+import { Openable } from '../services/interfaces';
 
 @Component({
   selector: 'rs-timebox',
@@ -31,6 +32,7 @@ export class TimeboxComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     const self = this;
+    //Current time update
     this.ngZone.runOutsideAngular(() => {
       self.intervalSubscription = Observable.interval(1000).subscribe(x => {
         const newDate: Moment = moment();
@@ -44,6 +46,10 @@ export class TimeboxComponent implements OnInit, OnDestroy {
         }
       });
     });
+    //Selected time update
+    this.timeboxService.selectedItemChange.subscribe(()=>{
+      this.selectedTime = this.timeboxService.selectedItem;
+    });
   }
 
   ngOnDestroy() {
@@ -53,14 +59,14 @@ export class TimeboxComponent implements OnInit, OnDestroy {
   }
 
   openTimePicker():void{
-    this.selectedTime = moment();
-    this.timeboxService.select(this.selectedTime);
-    this.popupService.show(TimePickerComponent);
+    const instance:Openable = this.popupService.show(TimePickerComponent);
+    instance.save.subscribe((time:Moment)=>{
+      this.timeboxService.select(time);
+    });
   }
 
   clearSelectedTime():void{
-    this.selectedTime = undefined;
-    this.timeboxService.select(this.currentTime);
+    this.timeboxService.select(undefined);
   }
 
 }
