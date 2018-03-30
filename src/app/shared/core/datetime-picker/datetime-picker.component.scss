@@ -1,5 +1,19 @@
 @import 'commons';
+@import '../shared/picker/picker.component';
 
 :host{
 	@extend %component;
+	width: 50vw;
+	display: flex;
+	flex-direction: column;
+}
+
+.pickers-container{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+rs-date-picker, rs-time-picker{
+	width: 50%;
 }

@@ -7,6 +7,7 @@ $picker-border-color: rgb(210, 210, 210);
 	@include shadow(1);
 	flex-direction: column;
 	font-family: $font-family-title;
+	width: 100%;
 }
 
 .picker-header{
@@ -14,17 +15,19 @@ $picker-border-color: rgb(210, 210, 210);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 70px;
+	flex-shrink: 0;
+	height: 120px;
 	box-sizing: border-box;
 	position: relative;
 
-	background-color: $light-2;
+	color: $light-1;
+	background-color: $dark-2;
 	border-bottom: 1px solid $picker-border-color;
 	font-size: 4rem;
 
 	::ng-deep rs-icon{
 		font-size: 4rem;
-		color: $dark-1;
+		color: $light-2;
 	}
 
 	.close-icon{
@@ -43,13 +46,15 @@ $picker-border-color: rgb(210, 210, 210);
 
 .save{
 	@include padding(2);
-	background-color: $dark-2;
-	color: $light-1;
+	background-color: $light-2;
+	color: $dark-2;
 	border: none;
 	border-top: 1px solid $picker-border-color;
 	font-family: $font-family-text;
+	font-size: 3rem;
 
 	&:hover{
+		color: $light-1;
 		background-color: $accent-1;
 	}
 }

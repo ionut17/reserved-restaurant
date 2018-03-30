@@ -7,8 +7,8 @@ import * as moment from 'moment';
 
 import { TimeboxService } from './timebox.service';
 import { PopupService } from '../services/popup.service';
-import { TimePickerComponent } from '../core/time-picker/time-picker.component';
 import { Openable } from '../services/interfaces';
+import { DatetimePickerComponent } from '../core/datetime-picker/datetime-picker.component';
 
 @Component({
   selector: 'rs-timebox',
@@ -59,7 +59,7 @@ export class TimeboxComponent implements OnInit, OnDestroy {
   }
 
   openTimePicker():void{
-    const instance:Openable = this.popupService.show(TimePickerComponent);
+    const instance:Openable = this.popupService.show(DatetimePickerComponent);
     instance.save.subscribe((time:Moment)=>{
       this.timeboxService.select(time);
     });

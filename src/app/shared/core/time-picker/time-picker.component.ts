@@ -23,6 +23,9 @@ export const CUSTOM_TIMEPICKER_CONTROL_VALUE_ACCESSOR: any = {
 export class TimePickerComponent extends ValueAccessorBase<Moment> implements OnInit, Openable {
 
   @ViewChild(PickerComponent) picker: PickerComponent;
+
+  @Input() saveButton: boolean = true;
+  @Input() closeButton: boolean = true;
   @Output() save: Subject<Moment> = new Subject<Moment>();
   @Output() close: Subject<any> = new Subject<any>();
 
@@ -58,7 +61,8 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
   }
 
   selectHour(hour:number):void{
-    this.tempHour.hour(hour);
+    this.tempHour.hour(hour)
+    if (!this.saveButton) this.value.hour(hour);
     this.step = 1;
   }
 
@@ -68,6 +72,7 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
 
   selectMinute(minute:number):void{
     this.tempHour.minute(minute);
+    if (!this.saveButton) this.value.minute(minute);
     this.step = 0;
   }
 

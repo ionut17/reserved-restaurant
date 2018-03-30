@@ -1,4 +1,4 @@
-<rs-picker (save)="onSave()">
+<rs-picker [saveButton]="saveButton" [closeButton]="closeButton" (save)="onSave()">
   <section picker-header>
     <rs-icon name="clock-o"></rs-icon>
     {{formattedTime}}

@@ -10,18 +10,21 @@ h5{
 	@include padding(2);
 	padding-bottom: nth($paddings, 1);
 	color: $dark-1;
-	font-size: 2rem;
-	font-weight: 700;
+	font-size: 3rem;
+	font-weight: 500;
 	font-family: $font-family-text;
 	text-transform: uppercase;
 }
 
 .time-picker{
 	@include padding(2);
-	display: grid;
-	grid-template-columns: repeat(8, 60px);
-	grid-auto-rows: 60px;
-	grid-gap: 10px;
+	padding-top: nth($paddings,1);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
 
 	&:first-of-type{
 		border-bottom: 1px solid $picker-border-color;
@@ -31,6 +34,9 @@ h5{
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		width: 60px;
+		height: 60px;
+		margin: 5px;
 
 		font-size: 3rem;
 		cursor: pointer;
@@ -41,13 +47,15 @@ h5{
 		box-sizing: border-box;
 
 		&.selected{
-			background-color: $dark-2;
+			background-color: $accent-1;
 			color: $light-1;
 		}
 
 		@include ahocus{
-			background-color: $accent-1;
-			color: $light-1;
+			background-color: $light-2;
+			&.selected{
+				background-color: $accent-1;
+			}
 		}
 	}
 }

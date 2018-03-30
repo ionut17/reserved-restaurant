@@ -1,8 +1,8 @@
 <section class='picker-header'>
   <ng-content select="[picker-header]"></ng-content>
-  <rs-icon class="close-icon" name="close" (click)="onClose()"></rs-icon>
+  <rs-icon *ngIf="closeButton" class="close-icon" name="close" (click)="onClose()"></rs-icon>
 </section>
 <section class='picker-content'>
   <ng-content select="[picker-content]"></ng-content>
 </section>
-<button class="save" (click)="onSave()">Salveaza</button>
+<button *ngIf="saveButton" class="save" (click)="onSave()">Salveaza</button>
