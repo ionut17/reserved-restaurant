@@ -1,23 +1,24 @@
 import { Injectable } from "@angular/core";
-import { Socket } from 'ng-socket-io';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class SocketService {
 
-	// private serverUrl = 'http://localhost:8080/reservations'
-	private serverUrl = 'http://rs-api:8080/reservations';
-	private title = 'WebSockets chat';
-	private stompClient;
+	constructor() {}
 
-	constructor() {
-		let ws = new SockJS(this.serverUrl);
-		this.stompClient = Stomp.over(ws);
-		let self = this;
-		this.stompClient.connect({
-			transports: ['websocket']
-		  }, function (frame) {
+	initializeWebSocket(serviceEndpoint: string, callback: (message: Stomp.Message) => void ):Promise<Stomp.Client>{
+		return new Promise((resolve, reject)=>{
+			const socketPath = `${environment.socket.endpoint}/${serviceEndpoint}`;
+			const socket = new SockJS(socketPath);
+			const socketClient: Stomp.Client = Stomp.over(socket);
+			socketClient.connect({transports: ['websocket']}, (frame: Stomp.Frame) => {
+				socketClient.subscribe(`/${environment.socket.inbound}/${serviceEndpoint}`, callback);
+				resolve(socketClient);
+			}, (error: string)=>{
+				reject(error);
+			});
 		});
 	}
 

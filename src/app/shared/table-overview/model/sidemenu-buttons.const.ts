@@ -1,6 +1,6 @@
 import { SidemenuButton } from "../../sidemenu";
 
-export const sidemenuButtons : SidemenuButton[] = [{
+export const freeTableButtons : SidemenuButton[] = [{
 	label: "Ocupa",
 	icon: "check-circle",
 	important: true,
@@ -13,4 +13,13 @@ export const sidemenuButtons : SidemenuButton[] = [{
 	clickCallback: (function() {
 		this.sidemenuService.hideMenu();
     })
+}];
+
+export const occupiedTableButtons : SidemenuButton[] = [{
+	label: "Finalizare",
+	icon: "check-circle",
+	important: true,
+	clickCallback: (function() {
+		this.sidemenuService.hideMenu();
+	})
 }];

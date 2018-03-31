@@ -16,10 +16,15 @@ body{
     top: 0;
     width: 100%;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	pointer-events: none;
 	z-index: 1000;
+
+	.right-aligned{
+		align-self: flex-end;
+	}
 }
 .cdk-overlay-dark-backdrop{
 	background: rgba(0,0,0,0.5);

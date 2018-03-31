@@ -4,9 +4,6 @@ import { ComponentPortal, ComponentType } from "@angular/cdk/portal";
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
-
-import { Openable } from "./interfaces";
 
 @Injectable()
 export class PopupService{
@@ -15,13 +12,10 @@ export class PopupService{
 
 	constructor(private overlay:Overlay){}
 
-	show(component: ComponentType<Openable>):Openable{
+	show(component: ComponentType<any>):any{
 		this.overlayRef = this.getOverlayRef();
 		const componentPortal = new ComponentPortal(component);
-		const componentInstance: Openable = this.overlayRef.attach(componentPortal).instance;
-		merge(componentInstance.close, componentInstance.save).subscribe(()=>{
-			this.hide();
-		});
+		const componentInstance: any = this.overlayRef.attach(componentPortal).instance;
 		return componentInstance;
 	}
 
@@ -30,9 +24,9 @@ export class PopupService{
 	}
 
 	private getOverlayRef():OverlayRef{
-		return this.overlay.create({
-			hasBackdrop: true
-		});
+		const ref: OverlayRef = this.overlay.create({hasBackdrop: true});
+		ref.backdropClick().subscribe(()=>this.hide());
+		return ref;
 	}
 
 }

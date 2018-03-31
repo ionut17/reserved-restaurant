@@ -1,4 +1,4 @@
-import { Item } from "./item.model";
+import { Item } from "../item.model";
 import { ReservationStatus } from "./reservation-status.enum";
 
 export class Reservation extends Item{

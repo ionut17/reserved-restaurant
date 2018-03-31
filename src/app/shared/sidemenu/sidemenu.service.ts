@@ -18,7 +18,8 @@ export class SidemenuService {
   constructor(private overlay: Overlay){
     //Create overlay
     this.overlayRef = this.overlay.create({
-      hasBackdrop: false
+      hasBackdrop: false,
+      panelClass: 'right-aligned'
     });
     //Create sidemenu component
     this.sidemenuPortal = new ComponentPortal(SidemenuComponent);

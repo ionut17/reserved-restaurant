@@ -21,6 +21,11 @@ mat-calendar{
 	font-size: 3rem;
 }
 
+::ng-deep .mat-calendar-body-selected{
+	background-color: $accent-1;
+	color: $light-1;
+}
+
 ::ng-deep .mat-calendar-body-cell{
 	@include padding(1);
 	font-family: $font-family-title;

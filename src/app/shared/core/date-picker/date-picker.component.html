@@ -4,6 +4,7 @@
   </section>
   <section picker-content>
     <mat-calendar [minDate]="minDate"
+                  [selected]="tempDate"
                   startView="month"
                   (selectedChange)="onCalendarChange($event)"></mat-calendar>
   </section>

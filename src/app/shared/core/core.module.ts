@@ -12,6 +12,7 @@ import { DatetimePickerComponent } from './datetime-picker/datetime-picker.compo
 import { TimePickerComponent } from './time-picker/time-picker.component';
 import { PickerComponent } from './shared/picker/picker.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { PreloaderComponent } from './preloader/preloader.component';
 
 const moduleComponents = [
   HeaderComponent,
@@ -20,7 +21,8 @@ const moduleComponents = [
   IconComponent,
   TimePickerComponent,
   DatetimePickerComponent,
-  DatePickerComponent
+  DatePickerComponent,
+  PreloaderComponent
 ]
 
 @NgModule({

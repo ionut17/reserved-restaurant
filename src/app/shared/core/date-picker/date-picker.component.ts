@@ -43,6 +43,7 @@ export class DatePickerComponent extends ValueAccessorBase<Moment> implements On
 
   ngOnInit() {
     this.minDate = moment();
+    if (!this.value) this.value = moment();
   }
 
   ngAfterContentInit() {
@@ -52,11 +53,13 @@ export class DatePickerComponent extends ValueAccessorBase<Moment> implements On
 
   onCalendarChange(date:Moment){
     this.tempDate = date;
-    if (!this.saveButton) this.value = date;
+    if (!this.saveButton) this.onSave();
   }
 
   onSave(){
-    this.value = this.tempDate;
+    this.value.year(this.tempDate.years());
+    this.value.month(this.tempDate.months());
+    this.value.date(this.tempDate.dates());
     this.save.next(this.value);
   }
 

@@ -9,6 +9,7 @@ import { ReservationStatusbarComponent } from './reservation-statusbar/reservati
 import { ReservationManagerService } from './reservation-manager.service';
 import { TableOverviewModule } from '../shared/table-overview/table-overview.module';
 import { RestaurantService } from '../shared/services/restaurant.service';
+import { ReservationService } from '../shared/services/reservation.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { RestaurantService } from '../shared/services/restaurant.service';
     TableOverviewModule
   ],
   declarations: [ReservationComponent, ReservationSidebarComponent, ReservationEntryComponent, ReservationStatusbarComponent],
-  providers: [ReservationManagerService, RestaurantService]
+  providers: [ReservationManagerService, RestaurantService, ReservationService]
 })
 export class ReservationModule { }

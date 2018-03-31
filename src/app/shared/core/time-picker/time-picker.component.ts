@@ -52,7 +52,7 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
     for (let i=0;i<60;i+=15){
       this.availableMinutes.push(i);
     }
-    this.value = moment();
+    if (!this.value) this.value = moment();
   }
 
   ngAfterContentInit() {

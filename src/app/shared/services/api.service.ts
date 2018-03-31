@@ -20,4 +20,8 @@ export class ApiService<T extends Item>{
 		return this.http.get(this.apiPath) as Observable<Array<T>>;
 	}
 
+	update(item: T):Observable<T>{
+		return this.http.put(`${this.apiPath}/${item.id}`, item) as Observable<T>;
+	}
+
 }

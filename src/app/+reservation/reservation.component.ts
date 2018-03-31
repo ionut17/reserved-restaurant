@@ -1,10 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RestaurantService } from '../shared/services/restaurant.service';
-import { SocketService } from '../shared/services/socket.service';
 import { Restaurant, Reservation } from '../shared/model';
 import { Subscription } from 'rxjs/Subscription';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+import * as Stomp from "stompjs";
 
-const restaurantId: string = '069066a3-9bfd-4e3e-8676-53735fd27434';
+import { SocketService, RestaurantService, reservationEndpoint } from '../shared/services';
+import { TimeboxService } from '../shared/timebox/timebox.service';
+
+const restaurantId: string = '713529b8-525d-4809-88dd-48d987e5c153';
 
 @Component({
   selector: 'rs-reservation',
@@ -19,25 +23,45 @@ export class ReservationComponent implements OnInit, OnDestroy {
   private restaurantServiceSubscription: Subscription;
   private restaurantReservationsSubscription: Subscription;
 
-  constructor(private restaurantService: RestaurantService){
-    this.restaurantService.getById(restaurantId).subscribe((res:Restaurant)=>{
-      this.restaurant = res;
-    });
-    this.restaurantService.getReservationsById(restaurantId).subscribe((res:Reservation[])=>{
-      this.reservations = res;
-    });
+  constructor(private restaurantService: RestaurantService,
+              private socketService: SocketService,
+              private timeboxService: TimeboxService) {
+    this.initialize();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
-    if (this.restaurantServiceSubscription){
+    if (this.restaurantServiceSubscription) {
       this.restaurantServiceSubscription.unsubscribe();
     }
-    if (this.restaurantReservationsSubscription){
+    if (this.restaurantReservationsSubscription) {
       this.restaurantReservationsSubscription.unsubscribe();
     }
+  }
+
+  private syncReservations(message: Stomp.Message) {
+    console.log(message);
+  }
+
+  private initialize(){
+    //Restaurant subscription
+    this.restaurantServiceSubscription = this.restaurantService.getById(restaurantId).subscribe((res: Restaurant) => {
+      this.restaurant = res;
+    });
+    //Reservations subscription when a time is selected (current time by default)
+    this.timeboxService.selectedItemChange.subscribe((res)=>{
+      //Dispose the old subscription
+      if (this.restaurantReservationsSubscription) this.restaurantReservationsSubscription.unsubscribe();
+      //Make the new subscription
+      this.restaurantReservationsSubscription = this.restaurantService.getReservationsById(restaurantId, {
+        startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
+      }).subscribe((res: Reservation[]) => {
+        this.reservations = res;
+      });
+    });
+    //Initialize the socket and pass a callback function to get the message
+    this.socketService.initializeWebSocket(reservationEndpoint, this.syncReservations);
   }
 
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ComponentRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { merge } from 'rxjs/observable/merge';
 import 'rxjs/add/observable/interval';
 import { Moment } from 'moment';
 import * as moment from 'moment';
@@ -22,8 +23,8 @@ export class TimeboxComponent implements OnInit, OnDestroy {
   private intervalSubscription: Subscription;
 
   constructor(private ngZone: NgZone,
-              private timeboxService: TimeboxService,
-              private popupService: PopupService) { }
+    private timeboxService: TimeboxService,
+    private popupService: PopupService) { }
 
   /**
    * Create an Observable timer which updates every second
@@ -32,40 +33,42 @@ export class TimeboxComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     const self = this;
+    this.timeboxService.select(undefined);
     //Current time update
     this.ngZone.runOutsideAngular(() => {
       self.intervalSubscription = Observable.interval(1000).subscribe(x => {
         const newDate: Moment = moment();
-        if (newDate.seconds() == 0){
-          self.ngZone.run(()=>{
-            if(this.timeboxService.isSelected(self.currentTime)){
-              this.timeboxService.select(newDate);
-            }
+        if (newDate.seconds() == 0) {
+          self.ngZone.run(() => {
             self.currentTime = newDate;
           });
         }
       });
     });
     //Selected time update
-    this.timeboxService.selectedItemChange.subscribe(()=>{
+    this.timeboxService.selectedItemChange.subscribe(() => {
       this.selectedTime = this.timeboxService.selectedItem;
     });
   }
 
   ngOnDestroy() {
-    if (this.intervalSubscription){
+    if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe();
     }
   }
 
-  openTimePicker():void{
-    const instance:Openable = this.popupService.show(DatetimePickerComponent);
-    instance.save.subscribe((time:Moment)=>{
+  openTimePicker(): void {
+    const instance: Openable = this.popupService.show(DatetimePickerComponent);
+    instance.close.subscribe(() => {
+      this.popupService.hide();
+    });
+    instance.save.subscribe((time: Moment) => {
       this.timeboxService.select(time);
+      this.popupService.hide();
     });
   }
 
-  clearSelectedTime():void{
+  clearSelectedTime(): void {
     this.timeboxService.select(undefined);
   }
 
