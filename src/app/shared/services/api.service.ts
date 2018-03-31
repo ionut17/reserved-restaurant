@@ -23,5 +23,4 @@ export class ApiService<T extends Item>{
 	update(item: T):Observable<T>{
 		return this.http.put(`${this.apiPath}/${item.id}`, item) as Observable<T>;
 	}
-
 }

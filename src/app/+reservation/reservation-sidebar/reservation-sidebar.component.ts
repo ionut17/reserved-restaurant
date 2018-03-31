@@ -41,14 +41,14 @@ export class ReservationSidebarComponent implements OnInit {
 
   selectReservation(reservation: Reservation):void{
     //Deselect any table selected
-    this.tableManagerService.deselect(false);
+    this.tableManagerService.deselectAll(false);
     //Select the assigned tables without the menu
     const selectedTables: Table[] = this.restaurant.tables.filter((table:Table)=>{
       return reservation.tables.indexOf(table.id) > -1;
     });
     this.restaurant.tables.forEach((table:Table)=>{
       if (reservation.tables.indexOf(table.id) > -1){
-        this.tableManagerService.select(table);
+        this.tableManagerService.select(table, false);
       }
     });
     //Select the reservation with the menu

@@ -8,7 +8,7 @@ import * as Stomp from "stompjs";
 import { SocketService, RestaurantService, reservationEndpoint } from '../shared/services';
 import { TimeboxService } from '../shared/timebox/timebox.service';
 
-const restaurantId: string = '713529b8-525d-4809-88dd-48d987e5c153';
+const restaurantId: string = 'eed9fcec-76c5-42c1-bc03-addc2ee70fba';
 
 @Component({
   selector: 'rs-reservation',
@@ -58,6 +58,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
         startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
       }).subscribe((res: Reservation[]) => {
         this.reservations = res;
+        console.log(res);
       });
     });
     //Initialize the socket and pass a callback function to get the message

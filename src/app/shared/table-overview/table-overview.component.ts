@@ -46,7 +46,18 @@ export class TableOverviewComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     //Set the different behaviour if a reservation is selected
-    this.tableManagerService.select(table);
+    const isReservationSelected: boolean = this.reservationManagerService.hasSelected();
+		switch (isReservationSelected) {
+			case true:
+				//In case of reservation selected, allow only the selection of other tables and without menu interaction
+				if (!(this.isSelected(table) && this.tableManagerService.selectedItems.length < 2)) {
+					this.tableManagerService.select(table, false);
+				}
+				break;
+			case false:
+				this.tableManagerService.select(table);
+				break;
+		}
   }
 
 }

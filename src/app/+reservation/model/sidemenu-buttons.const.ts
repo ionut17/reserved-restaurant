@@ -1,5 +1,5 @@
 import { SidemenuButton } from "../../shared/sidemenu";
-import { ReservationStatus } from "../../shared/model";
+import { ReservationStatus, Reservation, Table, ReservationDto } from "../../shared/model";
 
 export const sidemenuButtons : SidemenuButton[] = [{
 	label: "Ocupa",
@@ -7,20 +7,25 @@ export const sidemenuButtons : SidemenuButton[] = [{
 	important: true,
 	clickCallback: (function() {
 		if (this.hasSelected()){
-			this.updateStatus(this.selectedItem, ReservationStatus.Fulfilled);
+			const reservation: ReservationDto = this.selectedItem as ReservationDto;
+			reservation.clientId = this.selectedItem.client.id;
+			reservation.status = ReservationStatus.Fulfilled;
+			reservation.tables = this.tableManagerService.selectedItems.map((table: Table)=>table.id);
+			this.reservationService.update(reservation).subscribe((res)=>{
+			});
 		};
 		this.sidemenuService.hideMenu();
-    })
+	})
 },{
 	label: "Absent",
 	icon: "ban",
 	clickCallback: (function() {
 		this.sidemenuService.hideMenu();
-    })
+	})
 },{
 	label: "Sterge",
 	icon: "times-circle",
 	clickCallback: (function() {
 		this.sidemenuService.hideMenu();
-    })
+	})
 }];
