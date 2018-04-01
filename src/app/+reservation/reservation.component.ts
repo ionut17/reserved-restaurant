@@ -33,7 +33,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.restaurantManagerService.selectedItemChange.subscribe(()=>{
+    this.restaurantManagerService.selectedItemChange.subscribe(() => {
       this.restaurant = this.restaurantManagerService.selectedItem;
     });
   }
@@ -50,13 +50,13 @@ export class ReservationComponent implements OnInit, OnDestroy {
   private syncReservations(message: Stomp.Message) {
     const socketResponse: SocketEntityWrapper = JSON.parse(message.body) as SocketEntityWrapper;
     const reservation: Reservation = socketResponse.socketEntity as Reservation;
-    switch(socketResponse.action){
+    switch (socketResponse.action) {
       case SocketPayloadAction.Created:
         this.reservations.set(reservation.id, reservation);
         this.reservations = new Map(this.reservations);
         break;
       case SocketPayloadAction.Updated:
-        if (this.reservations.has(reservation.id)){
+        if (this.reservations.has(reservation.id)) {
           this.reservations.set(reservation.id, reservation);
           this.reservations = new Map(this.reservations);
         }
@@ -68,13 +68,14 @@ export class ReservationComponent implements OnInit, OnDestroy {
     }
   }
 
-  private initialize(){
+  private initialize() {
     //Restaurant subscription
     this.restaurantServiceSubscription = this.restaurantService.getById(restaurantId).subscribe((res: Restaurant) => {
+      res.id = restaurantId;
       this.restaurantManagerService.select(res);
     });
     //Reservations subscription when a time is selected (current time by default)
-    this.timeboxService.selectedItemChange.subscribe((res)=>{
+    this.timeboxService.selectedItemChange.subscribe((res) => {
       //Dispose the old subscription
       if (this.restaurantReservationsSubscription) this.restaurantReservationsSubscription.unsubscribe();
       //Make the new subscription
@@ -82,7 +83,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
         startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
       }).subscribe((res: Reservation[]) => {
         this.reservations = new Map();
-        res.forEach((reservation: Reservation)=>{
+        res.forEach((reservation: Reservation) => {
           this.reservations.set(reservation.id, reservation);
         });
       });

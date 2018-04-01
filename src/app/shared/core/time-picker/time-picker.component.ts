@@ -35,7 +35,7 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
   private step: 0 | 1 | 2;
   private tempHour: Moment = moment();
 
-  get formattedTime():string{
+  get formattedTime(): string {
     return this.tempHour ? this.tempHour.format('HH:mm') : "";
   }
 
@@ -46,47 +46,47 @@ export class TimePickerComponent extends ValueAccessorBase<Moment> implements On
   ngOnInit() {
     //Init
     this.step = 0;
-    for (let i=8;i<=23;i++){
+    for (let i = 8; i <= 23; i++) {
       this.availableHours.push(i);
     }
-    for (let i=0;i<60;i+=15){
+    for (let i = 0; i < 60; i += 15) {
       this.availableMinutes.push(i);
     }
     if (!this.value) this.value = moment();
   }
 
   ngAfterContentInit() {
-    this.picker.save.subscribe(()=>this.onSave());
-    this.picker.close.subscribe(()=>this.onClose());
+    this.picker.save.subscribe(() => this.onSave());
+    this.picker.close.subscribe(() => this.onClose());
   }
 
-  selectHour(hour:number):void{
+  selectHour(hour: number): void {
     this.tempHour.hour(hour)
     if (!this.saveButton) this.value.hour(hour);
     this.step = 1;
   }
 
-  isHourSelected(hour:number):boolean{
+  isHourSelected(hour: number): boolean {
     return this.tempHour ? _.isEqual(hour, this.tempHour.hours()) : false;
   }
 
-  selectMinute(minute:number):void{
+  selectMinute(minute: number): void {
     this.tempHour.minute(minute);
     if (!this.saveButton) this.value.minute(minute);
     this.step = 0;
   }
 
-  isMinuteSelected(minute:number):boolean{
+  isMinuteSelected(minute: number): boolean {
     return this.tempHour ? _.isEqual(minute, this.tempHour.minutes()) : false;
   }
 
-  onSave(){
+  onSave() {
     this.value.hour(this.tempHour.hours());
     this.value.minute(this.tempHour.minutes());
     this.save.next(this.value);
   }
 
-  onClose(){
+  onClose() {
     this.close.next();
   }
 

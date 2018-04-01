@@ -38,11 +38,11 @@ export class DatetimePickerComponent extends ValueAccessorBase<Moment> implement
     this.value = moment();
   }
 
-  onSave(){
+  onSave() {
     this.save.next(this.value);
   }
 
-  onClose(){
+  onClose() {
     this.close.next();
   }
 

@@ -10,7 +10,7 @@ import { ReservationService, RestaurantService } from "../services";
 import { RestaurantManagerService } from "../../+reservation/restaurant-manager.service";
 
 @Injectable()
-export class TableManagerService{
+export class TableManagerService {
 
 	@Output() selectedItemChange: EventEmitter<Table[]> = new EventEmitter();
 
@@ -23,18 +23,18 @@ export class TableManagerService{
 
 	constructor(private sidemenuService: SidemenuService,
 				private restaurantManagerService: RestaurantManagerService,
-				private reservationService: ReservationService)	{
-		this.sidemenuService.onClose().subscribe(()=>{
+				private reservationService: ReservationService) {
+		this.sidemenuService.onClose().subscribe(() => {
 			this.deselectAll(false);
 		});
 		const self = this;
-		[...freeTableButtons,...occupiedTableButtons].forEach((button:SidemenuButton)=>{
+		[...freeTableButtons, ...occupiedTableButtons].forEach((button: SidemenuButton) => {
 			button.clickCallback = button.clickCallback.bind(self);
 		});
 	}
 
-	ngOnDestroy(){
-		if (this.sidemenuCloseSubscription){
+	ngOnDestroy() {
+		if (this.sidemenuCloseSubscription) {
 			this.sidemenuCloseSubscription.unsubscribe();
 		}
 	}
@@ -54,33 +54,33 @@ export class TableManagerService{
 		return this.fulfilledReservationsTableIds.indexOf(table.id) > -1;
 	}
 
-	hasSelected():boolean{
+	hasSelected(): boolean {
 		return this.selectedItems.length > 0;
 	}
 
-	isSelected(item: Table):boolean{
+	isSelected(item: Table): boolean {
 		return item && this.selectedItems
-				? this.selectedItems.findIndex((table:Table)=>table.id===item.id) > -1
-				: false;
+			? this.selectedItems.findIndex((table: Table) => table.id === item.id) > -1
+			: false;
 	}
 
-	deselect(item: Table, menuInteraction:boolean = true):void{
-		const index:number = this.selectedItems.findIndex((table: Table)=>table.id == item.id);
+	deselect(item: Table, menuInteraction: boolean = true): void {
+		const index: number = this.selectedItems.findIndex((table: Table) => table.id == item.id);
 		this.selectedItems.splice(index, 1);
 		this.selectedItemChange.emit(this.selectedItems);
 		if (menuInteraction && this.selectedItems.length == 0) this.sidemenuService.hideMenu();
 	}
 
-	deselectAll(menuInteraction:boolean = true):void{
+	deselectAll(menuInteraction: boolean = true): void {
 		this.selectedItems = [];
 		this.selectedItemChange.emit(this.selectedItems);
 		if (menuInteraction) this.sidemenuService.hideMenu();
 	}
 
-	getFullfilledReservationByTable(table: Table):Reservation{
+	getFullfilledReservationByTable(table: Table): Reservation {
 		let foundReservation: Reservation;
-		this.fulfilledReservations.forEach((reservation: Reservation)=>{
-			if (reservation.tables.indexOf(table.id) > -1){
+		this.fulfilledReservations.forEach((reservation: Reservation) => {
+			if (reservation.tables.indexOf(table.id) > -1) {
 				foundReservation = reservation;
 			}
 		});

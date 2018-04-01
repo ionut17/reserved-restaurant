@@ -1,5 +1,5 @@
 import { Saveable, Closeable } from "./index";
 
-export interface Openable extends Saveable, Closeable{
+export interface Openable extends Saveable, Closeable {
 
 }

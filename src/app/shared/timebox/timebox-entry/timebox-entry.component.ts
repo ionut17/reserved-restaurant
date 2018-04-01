@@ -3,7 +3,7 @@ import { Component, Input, SimpleChanges, HostBinding } from '@angular/core';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-enum TimeboxEntryType{
+enum TimeboxEntryType {
   Normal = <any>"normal",
   Selected = <any>"selected"
 }
@@ -23,13 +23,13 @@ export class TimeboxEntryComponent {
   private timeFormat: string = "HH:mm";
   private dateFormat: string = "DD MMM YYYY";
 
-  constructor() {}
+  constructor() { }
 
-  get formattedTime():string{
+  get formattedTime(): string {
     return this.time.format(this.timeFormat);
   }
 
-  get formattedDate():string{
+  get formattedDate(): string {
     return this.time.format(this.dateFormat);
   }
 

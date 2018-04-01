@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener} from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { SidemenuService } from './sidemenu.service';
 import { SidemenuButton } from './model';
 
@@ -11,7 +11,7 @@ export class SidemenuComponent implements OnInit {
 
   @Input() sidemenuButtons: SidemenuButton[] = [];
 
-  @HostListener('click', ['$event']) onClick(event:Event) {
+  @HostListener('click', ['$event']) onClick(event: Event) {
     event.stopPropagation();
     event.preventDefault();
   }
@@ -21,7 +21,7 @@ export class SidemenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClose():void{
+  onClose(): void {
     this.sidemenuService.hideMenu();
   }
 

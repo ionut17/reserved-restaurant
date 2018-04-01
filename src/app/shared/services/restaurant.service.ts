@@ -24,8 +24,8 @@ export class RestaurantService extends ApiService<Restaurant>{
 		super(http, restaurantEndpoint);
 	}
 
-	getReservationsById(id:string, config: ReservationConfigHttp):Observable<Array<Reservation>>{
-		return this.http.get(`${this.apiPath}/${id}/${reservationEndpoint}`, {params: {...config}}) as Observable<Array<Reservation>>;
+	getReservationsById(id: string, config: ReservationConfigHttp): Observable<Array<Reservation>> {
+		return this.http.get(`${this.apiPath}/${id}/${reservationEndpoint}`, { params: { ...config } }) as Observable<Array<Reservation>>;
 	}
 
 }

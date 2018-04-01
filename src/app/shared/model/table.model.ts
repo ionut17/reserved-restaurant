@@ -1,6 +1,6 @@
 import { Item } from "./item.model";
 
-export class Table extends Item{
+export class Table extends Item {
 	number: number;
 	capacity: number;
 	coordinates?: {

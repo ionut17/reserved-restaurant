@@ -20,7 +20,7 @@ export class ReservationEntryComponent implements OnInit {
   ngOnInit() {
   }
 
-  emitSelect(event: Event){
+  emitSelect(event: Event) {
     event.stopPropagation();
     event.preventDefault();
     this.select.emit();

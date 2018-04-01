@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
 
-export interface Saveable{
+export interface Saveable {
 	save: Subject<any>;
 }

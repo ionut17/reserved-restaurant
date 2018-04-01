@@ -1,4 +1,4 @@
-export class SidemenuButton{
+export class SidemenuButton {
 	icon: string;
 	label: string;
 	important?: boolean = false;

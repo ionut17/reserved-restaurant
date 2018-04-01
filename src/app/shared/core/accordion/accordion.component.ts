@@ -16,7 +16,7 @@ export class AccordionComponent implements OnInit {
   ngOnInit() {
   }
 
-  doToggle():void{
+  doToggle(): void {
     this.expanded = !this.expanded;
     this.toggle.emit();
   }

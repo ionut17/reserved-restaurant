@@ -7,12 +7,12 @@ import { Openable } from '../../../services/interfaces/index';
   templateUrl: './picker.component.html',
   styleUrls: ['./picker.component.scss']
 })
-export class PickerComponent implements OnInit, Openable{
+export class PickerComponent implements OnInit, Openable {
 
   @Input() saveButton: boolean = true;
   @Input() closeButton: boolean = true;
-  @Output() save:Subject<any> = new Subject();
-  @Output() close:Subject<any> = new Subject();
+  @Output() save: Subject<any> = new Subject();
+  @Output() close: Subject<any> = new Subject();
 
   constructor() { }
 
@@ -23,7 +23,7 @@ export class PickerComponent implements OnInit, Openable{
     this.save.next();
   }
 
-  onClose(){
+  onClose() {
     this.close.next();
   }
 

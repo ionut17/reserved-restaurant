@@ -1,7 +1,7 @@
 import { Item } from "../item.model";
 import { ReservationStatus } from "./reservation-status.enum";
 
-export class Reservation extends Item{
+export class Reservation extends Item {
 	name: string;
 	people: number;
 	startTime: Date;

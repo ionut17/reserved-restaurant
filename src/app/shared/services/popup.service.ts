@@ -6,26 +6,26 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class PopupService{
+export class PopupService {
 
 	private overlayRef: OverlayRef;
 
-	constructor(private overlay:Overlay){}
+	constructor(private overlay: Overlay) { }
 
-	show(component: ComponentType<any>):any{
+	show(component: ComponentType<any>): any {
 		this.overlayRef = this.getOverlayRef();
 		const componentPortal = new ComponentPortal(component);
 		const componentInstance: any = this.overlayRef.attach(componentPortal).instance;
 		return componentInstance;
 	}
 
-	hide():void{
+	hide(): void {
 		this.overlayRef.dispose();
 	}
 
-	private getOverlayRef():OverlayRef{
-		const ref: OverlayRef = this.overlay.create({hasBackdrop: true});
-		ref.backdropClick().subscribe(()=>this.hide());
+	private getOverlayRef(): OverlayRef {
+		const ref: OverlayRef = this.overlay.create({ hasBackdrop: true });
+		ref.backdropClick().subscribe(() => this.hide());
 		return ref;
 	}
 

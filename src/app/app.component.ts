@@ -9,9 +9,9 @@ import { SidemenuService } from './shared/sidemenu';
 })
 export class AppComponent {
 
-  constructor(private sidemenuService: SidemenuService){}
+  constructor(private sidemenuService: SidemenuService) { }
 
-  @HostListener('document:click', ['$event']) clickedOutside($event){
+  @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.sidemenuService.hideMenu();
   }
 

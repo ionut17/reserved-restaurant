@@ -7,11 +7,11 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 })
 export class SidemenuButtonComponent implements OnInit {
 
-  @Input() icon:string = '';
+  @Input() icon: string = '';
 
-  @Input() label:string = 'Label';
+  @Input() label: string = 'Label';
 
-  @Input() @HostBinding('class.important') important:boolean = false;
+  @Input() @HostBinding('class.important') important: boolean = false;
 
   constructor() { }
 

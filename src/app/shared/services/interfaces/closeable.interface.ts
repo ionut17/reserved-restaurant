@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
 
-export interface Closeable{
+export interface Closeable {
 	close: Subject<any>;
 }

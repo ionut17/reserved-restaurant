@@ -11,7 +11,7 @@ export class IconComponent implements OnInit {
 
   @Input() size: '' | 'lg' | '2x' | '3x' | '4x' | '5x' | 'fw' = '';
 
-  get classes(){
+  get classes() {
     const sizeClass: string = `la-${this.size}`;
     return `icon la la-${this.name} ${sizeClass}`;
   }

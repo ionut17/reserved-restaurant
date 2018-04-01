@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Router } from '@angular/router';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';

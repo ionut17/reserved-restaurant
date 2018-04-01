@@ -15,7 +15,7 @@ export class SidemenuService {
 
   private onClose$: Subject<any> = new Subject<any>();
 
-  constructor(private overlay: Overlay){
+  constructor(private overlay: Overlay) {
     //Create overlay
     this.overlayRef = this.overlay.create({
       hasBackdrop: false,
@@ -25,22 +25,22 @@ export class SidemenuService {
     this.sidemenuPortal = new ComponentPortal(SidemenuComponent);
   }
 
-  showMenu(buttons: SidemenuButton[]):void{
+  showMenu(buttons: SidemenuButton[]): void {
     if (this.hasMenu()) this.overlayRef.detach();
     const attached: ComponentRef<SidemenuComponent> = this.overlayRef.attach(this.sidemenuPortal);
     attached.instance.sidemenuButtons = buttons;
   }
 
-  hideMenu():void{
+  hideMenu(): void {
     this.onClose$.next();
     this.overlayRef.detach();
   }
 
-  hasMenu():boolean{
+  hasMenu(): boolean {
     return this.overlayRef.hasAttached();
   }
 
-  onClose():Observable<any>{
+  onClose(): Observable<any> {
     return this.onClose$.asObservable();
   }
 

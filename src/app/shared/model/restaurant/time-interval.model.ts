@@ -1,4 +1,4 @@
-export class TimeInterval{
+export class TimeInterval {
 	startTime: number;
 	endTime: number;
 }

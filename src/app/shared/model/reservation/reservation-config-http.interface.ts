@@ -1,3 +1,3 @@
-export interface ReservationConfigHttp{
+export interface ReservationConfigHttp {
 	startTime: string;
 }

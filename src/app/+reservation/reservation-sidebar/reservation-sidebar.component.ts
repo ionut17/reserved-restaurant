@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges} from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as _ from "lodash";
 
 import { Reservation, ReservationStatus, Restaurant, Table } from '../../shared/model';
@@ -17,20 +17,20 @@ export class ReservationSidebarComponent implements OnInit {
   private internalReservations: Reservation[] = [];
 
   constructor(private reservationManagerService: ReservationManagerService,
-              private tableManagerService: TableManagerService) { }
+    private tableManagerService: TableManagerService) { }
 
   ngOnInit() {
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    if (changes["reservations"] && this.reservations){
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["reservations"] && this.reservations) {
       this.internalReservations = [];
-      this.reservations.forEach((reservation: Reservation)=>{
-        if (reservation.status === ReservationStatus.Pending){
+      this.reservations.forEach((reservation: Reservation) => {
+        if (reservation.status === ReservationStatus.Pending) {
           this.internalReservations.push(reservation);
         }
       });
-      this.internalReservations.sort((a:Reservation, b:Reservation)=>{
+      this.internalReservations.sort((a: Reservation, b: Reservation) => {
         if (a.startTime < b.startTime) return -1;
         if (a.startTime > b.startTime) return 1;
         return 0;
@@ -38,16 +38,16 @@ export class ReservationSidebarComponent implements OnInit {
     }
   }
 
-  isSelected(reservation: Reservation):boolean{
+  isSelected(reservation: Reservation): boolean {
     return this.reservationManagerService.isSelected(reservation);
   }
 
-  selectReservation(reservation: Reservation):void{
+  selectReservation(reservation: Reservation): void {
     //Deselect any table selected
     this.tableManagerService.deselectAll(false);
     //Select the assigned tables without the menu
-    this.restaurant.tables.forEach((table:Table)=>{
-      if (reservation.tables.indexOf(table.id) > -1){
+    this.restaurant.tables.forEach((table: Table) => {
+      if (reservation.tables.indexOf(table.id) > -1) {
         this.tableManagerService.select(table, false);
       }
     });

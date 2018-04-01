@@ -33,7 +33,7 @@ export class DatePickerComponent extends ValueAccessorBase<Moment> implements On
   minDate: Moment;
   private tempDate: Moment = moment();
 
-  get formattedDate():string{
+  get formattedDate(): string {
     return this.tempDate ? this.tempDate.format('DD MMM YYYY') : "";
   }
 
@@ -47,23 +47,23 @@ export class DatePickerComponent extends ValueAccessorBase<Moment> implements On
   }
 
   ngAfterContentInit() {
-    this.picker.save.subscribe(()=>this.onSave());
-    this.picker.close.subscribe(()=>this.onClose());
+    this.picker.save.subscribe(() => this.onSave());
+    this.picker.close.subscribe(() => this.onClose());
   }
 
-  onCalendarChange(date:Moment){
+  onCalendarChange(date: Moment) {
     this.tempDate = date;
     if (!this.saveButton) this.onSave();
   }
 
-  onSave(){
+  onSave() {
     this.value.year(this.tempDate.years());
     this.value.month(this.tempDate.months());
     this.value.date(this.tempDate.dates());
     this.save.next(this.value);
   }
 
-  onClose(){
+  onClose() {
     this.close.next();
   }
 

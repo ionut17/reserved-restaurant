@@ -6,17 +6,17 @@ import { environment } from "../../../environments/environment";
 @Injectable()
 export class SocketService {
 
-	constructor() {}
+	constructor() { }
 
-	initializeWebSocket(serviceEndpoint: string, callback: (message: Stomp.Message) => void ):Promise<Stomp.Client>{
-		return new Promise((resolve, reject)=>{
+	initializeWebSocket(serviceEndpoint: string, callback: (message: Stomp.Message) => void): Promise<Stomp.Client> {
+		return new Promise((resolve, reject) => {
 			const socketPath = `${environment.socket.endpoint}/${serviceEndpoint}`;
 			const socket = new SockJS(socketPath);
 			const socketClient: Stomp.Client = Stomp.over(socket);
-			socketClient.connect({transports: ['websocket']}, (frame: Stomp.Frame) => {
+			socketClient.connect({ transports: ['websocket'] }, (frame: Stomp.Frame) => {
 				socketClient.subscribe(`/${environment.socket.inbound}/${serviceEndpoint}`, callback);
 				resolve(socketClient);
-			}, (error: string)=>{
+			}, (error: string) => {
 				reject(error);
 			});
 		});
