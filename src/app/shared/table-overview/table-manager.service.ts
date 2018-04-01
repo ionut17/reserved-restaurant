@@ -6,7 +6,8 @@ import { freeTableButtons, occupiedTableButtons } from "./model";
 import { Table, Reservation, ReservationStatus } from "../model";
 import { ManagerService } from "../services/manager.service";
 import { ReservationManagerService } from "../../+reservation/reservation-manager.service";
-import { ReservationService } from "../services";
+import { ReservationService, RestaurantService } from "../services";
+import { RestaurantManagerService } from "../../+reservation/restaurant-manager.service";
 
 @Injectable()
 export class TableManagerService{
@@ -16,12 +17,13 @@ export class TableManagerService{
 	selectedItems: Table[] = [];
 	private sidemenuCloseSubscription: Subscription;
 
-	private pendingReservations: Reservation[] = [];
-	private fulfilledReservations: Reservation[] = [];
+	private pendingReservations: Map<string, Reservation> = new Map();
+	private fulfilledReservations: Map<string, Reservation> = new Map();
 	private fulfilledReservationsTableIds: string[] = [];
 
 	constructor(private sidemenuService: SidemenuService,
-				private reservationService: ReservationService) {
+				private restaurantManagerService: RestaurantManagerService,
+				private reservationService: ReservationService)	{
 		this.sidemenuService.onClose().subscribe(()=>{
 			this.deselectAll(false);
 		});
@@ -76,19 +78,25 @@ export class TableManagerService{
 	}
 
 	getFullfilledReservationByTable(table: Table):Reservation{
-		return this.fulfilledReservations.find((reservation: Reservation)=>reservation.tables.indexOf(table.id) > -1);
+		let foundReservation: Reservation;
+		this.fulfilledReservations.forEach((reservation: Reservation)=>{
+			if (reservation.tables.indexOf(table.id) > -1){
+				foundReservation = reservation;
+			}
+		});
+		return foundReservation;
 	}
 
-	updateReservations(reservations: Reservation[]) {
-		this.pendingReservations = [];
-		this.fulfilledReservations = [];
+	updateReservations(reservations: Map<string, Reservation>) {
+		this.pendingReservations = new Map();
+		this.fulfilledReservations = new Map();
 		reservations.forEach((res: Reservation) => {
 			switch (res.status) {
 				case ReservationStatus.Pending:
-					this.pendingReservations.push(res);
+					this.pendingReservations.set(res.id, res);
 					break;
 				case ReservationStatus.Fulfilled:
-					this.fulfilledReservations.push(res);
+					this.fulfilledReservations.set(res.id, res);
 					break;
 			}
 		});

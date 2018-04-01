@@ -9,4 +9,5 @@ export class Restaurant extends Item{
 	email: string;
 	tables: Array<Table>;
 	schedule: Map<WeekDay, TimeInterval>;
+	defaultClientId: string;
 }

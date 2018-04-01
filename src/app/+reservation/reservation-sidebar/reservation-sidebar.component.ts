@@ -12,7 +12,7 @@ import { TableManagerService } from '../../shared/table-overview/table-manager.s
 })
 export class ReservationSidebarComponent implements OnInit {
 
-  @Input() reservations: Reservation[] = [];
+  @Input() reservations: Map<string, Reservation> = new Map();
   @Input() restaurant: Restaurant;
   private internalReservations: Reservation[] = [];
 
@@ -24,8 +24,11 @@ export class ReservationSidebarComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges){
     if (changes["reservations"] && this.reservations){
-      this.internalReservations = this.reservations.filter((entry: Reservation)=>{
-        return entry.status == ReservationStatus.Pending;
+      this.internalReservations = [];
+      this.reservations.forEach((reservation: Reservation)=>{
+        if (reservation.status === ReservationStatus.Pending){
+          this.internalReservations.push(reservation);
+        }
       });
       this.internalReservations.sort((a:Reservation, b:Reservation)=>{
         if (a.startTime < b.startTime) return -1;
@@ -43,9 +46,6 @@ export class ReservationSidebarComponent implements OnInit {
     //Deselect any table selected
     this.tableManagerService.deselectAll(false);
     //Select the assigned tables without the menu
-    const selectedTables: Table[] = this.restaurant.tables.filter((table:Table)=>{
-      return reservation.tables.indexOf(table.id) > -1;
-    });
     this.restaurant.tables.forEach((table:Table)=>{
       if (reservation.tables.indexOf(table.id) > -1){
         this.tableManagerService.select(table, false);

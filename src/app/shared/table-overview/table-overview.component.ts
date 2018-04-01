@@ -13,7 +13,7 @@ import { TimeboxComponent } from '../timebox/timebox.component';
 export class TableOverviewComponent implements OnInit {
 
   @Input() tables: Table[] = [];
-  @Input() reservations: Reservation[] = [];
+  @Input() reservations: Map<string, Reservation> = new Map();
 
   constructor(private tableManagerService: TableManagerService,
               private reservationManagerService: ReservationManagerService) { }

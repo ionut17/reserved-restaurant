@@ -10,6 +10,7 @@ import { ReservationManagerService } from './reservation-manager.service';
 import { TableOverviewModule } from '../shared/table-overview/table-overview.module';
 import { RestaurantService } from '../shared/services/restaurant.service';
 import { ReservationService } from '../shared/services/reservation.service';
+import { RestaurantManagerService } from './restaurant-manager.service';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { ReservationService } from '../shared/services/reservation.service';
     TableOverviewModule
   ],
   declarations: [ReservationComponent, ReservationSidebarComponent, ReservationEntryComponent, ReservationStatusbarComponent],
-  providers: [ReservationManagerService, RestaurantService, ReservationService]
+  providers: [RestaurantManagerService, ReservationManagerService, RestaurantService, ReservationService]
 })
 export class ReservationModule { }

@@ -8,6 +8,18 @@ export const freeTableButtons : SidemenuButton[] = [{
 	icon: "check-circle",
 	important: true,
 	clickCallback: (function() {
+		if (this.hasSelected()){
+			const waiterReservation: ReservationDto = {
+				clientId: this.restaurantManagerService.selectedItem.defaultClientId,
+				restaurantId: this.restaurantManagerService.selectedItem.restaurantId,
+				startTime: moment().toDate(),
+				endTime: null,
+				status: ReservationStatus.Fulfilled,
+				people: 1,
+				tables: this.selectedItems.map((table:Table)=>table.id)
+			};
+			this.reservationService.post(waiterReservation).subscribe((res)=>{});
+		};
 		this.sidemenuService.hideMenu();
     })
 },{
