@@ -10,7 +10,7 @@ import { SocketService, RestaurantService, reservationEndpoint } from '../shared
 import { TimeboxService } from '../shared/timebox/timebox.service';
 import { RestaurantManagerService } from './restaurant-manager.service';
 
-const restaurantId: string = '9d1c4c2f-e075-4cc2-8e88-fc83c49b8528';
+const restaurantId: string = 'd3c498c1-fae8-445f-ab57-abfc7481cf93';
 
 @Component({
   selector: 'rs-reservation',
@@ -53,43 +53,52 @@ export class ReservationComponent implements OnInit, OnDestroy {
     switch (socketResponse.action) {
       case SocketPayloadAction.Created:
         this.reservations.set(reservation.id, reservation);
-        this.reservations = new Map(this.reservations);
         break;
       case SocketPayloadAction.Updated:
         if (this.reservations.has(reservation.id)) {
-          this.reservations.set(reservation.id, reservation);
-          this.reservations = new Map(this.reservations);
+          if (moment(reservation.endTime).isAfter(moment())){
+            this.reservations.set(reservation.id, reservation);
+          } else{
+            this.reservations.delete(reservation.id);
+          }
         }
         break;
       case SocketPayloadAction.Deleted:
         this.reservations.delete(reservation.id);
-        this.reservations = new Map(this.reservations);
         break;
     }
+    this.reservations = new Map(this.reservations); //Drop old cached version
   }
 
   private initialize() {
     //Restaurant subscription
-    this.restaurantServiceSubscription = this.restaurantService.getById(restaurantId).subscribe((res: Restaurant) => {
-      res.id = restaurantId;
-      this.restaurantManagerService.select(res);
+    this.restaurantServiceSubscription = this.restaurantService.getAll().subscribe((res: Restaurant[]) => {
+      this.restaurantService.getById(res[1].id).subscribe((res: Restaurant) => {
+        this.restaurantManagerService.select(res);
+        this.initializeReservations(res.id);
+      });
     });
+    //Initialize the socket and pass a callback function to get the message
+    this.socketService.initializeWebSocket(reservationEndpoint, this.syncReservations.bind(this));
+  }
+
+  private initializeReservations(restaurantId: string){
     //Reservations subscription when a time is selected (current time by default)
     this.timeboxService.selectedItemChange.subscribe((res) => {
       //Dispose the old subscription
       if (this.restaurantReservationsSubscription) this.restaurantReservationsSubscription.unsubscribe();
       //Make the new subscription
-      this.restaurantReservationsSubscription = this.restaurantService.getReservationsById(restaurantId, {
-        startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
-      }).subscribe((res: Reservation[]) => {
-        this.reservations = new Map();
-        res.forEach((reservation: Reservation) => {
-          this.reservations.set(reservation.id, reservation);
+      this.restaurantReservationsSubscription = this.restaurantService
+        .getReservationsById(restaurantId, {
+          startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
+        }).subscribe((res: Reservation[]) => {
+          this.reservations = new Map();
+          res.forEach((reservation: Reservation) => {
+            this.reservations.set(reservation.id, reservation);
+          });
         });
-      });
     });
-    //Initialize the socket and pass a callback function to get the message
-    this.socketService.initializeWebSocket(reservationEndpoint, this.syncReservations.bind(this));
+    this.timeboxService.selectedItemChange.emit();
   }
 
 }
