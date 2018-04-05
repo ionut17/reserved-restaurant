@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 
-import { Reservation } from '../../shared/model';
+import { Reservation } from '../../shared/@model';
 
 @Component({
   selector: 'rs-reservation-entry',

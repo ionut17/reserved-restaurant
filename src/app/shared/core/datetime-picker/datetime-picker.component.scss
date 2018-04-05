@@ -17,3 +17,14 @@
 rs-date-picker, rs-time-picker{
 	width: 50%;
 }
+
+::ng-deep rs-icon.close-icon{
+	font-size: 4rem;
+	color: $light-2;
+}
+.close-icon{
+	position: absolute;
+	top: nth($margins,1);
+	right: nth($margins,1);
+	cursor: pointer;
+}

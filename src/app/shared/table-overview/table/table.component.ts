@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { Table } from '../../model';
+import { Table } from '../../@model';
 
 @Component({
   selector: 'rs-table',

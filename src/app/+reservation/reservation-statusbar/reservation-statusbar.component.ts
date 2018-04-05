@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Restaurant } from '../../shared/model';
+import { Restaurant } from '../../shared/@model';
 
 @Component({
   selector: 'rs-reservation-statusbar',

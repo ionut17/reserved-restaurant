@@ -6,9 +6,9 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
 import { ApiService } from "./api.service";
-import { Restaurant, Reservation, ReservationStatus } from "../model";
-import { SocketService } from "./socket.service";
-import { environment } from "../../../environments/environment";
+import { Restaurant, Reservation, ReservationStatus } from "../../@model";
+import { SocketService } from "../socket/socket.service";
+import { environment } from "../../../../environments/environment";
 
 export const reservationEndpoint: string = 'reservations';
 

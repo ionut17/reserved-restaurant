@@ -6,9 +6,9 @@ import 'rxjs/add/observable/interval';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
+import { Openable } from '../@model';
+import { PopupService } from '../@services';
 import { TimeboxService } from './timebox.service';
-import { PopupService } from '../services/popup.service';
-import { Openable } from '../services/interfaces';
 import { DatetimePickerComponent } from '../core/datetime-picker/datetime-picker.component';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
-import { Table, Reservation, ReservationStatus } from '../model';
-import { SidemenuService } from '../sidemenu';
-import { TableManagerService } from './table-manager.service';
-import { ReservationManagerService } from '../../+reservation/reservation-manager.service';
+
+import { Table, Reservation, ReservationStatus } from '../@model';
+import { ReservationManagerService, TableManagerService } from '../@services';
+import { SidemenuService } from '../sidemenu/sidemenu.service';
 import { TimeboxComponent } from '../timebox/timebox.component';
 
 @Component({

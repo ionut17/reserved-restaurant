@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Openable } from '../../../services/interfaces/index';
+import { Openable } from '../../../@model';
 
 @Component({
   selector: 'rs-picker',

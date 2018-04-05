@@ -1,17 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Router } from '@angular/router';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { PopupService, SocketService } from './shared/@services';
 import { CoreModule } from './shared/core';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
-import { SocketService } from './shared/services/socket.service';
-import { PopupService } from './shared/services/popup.service';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [

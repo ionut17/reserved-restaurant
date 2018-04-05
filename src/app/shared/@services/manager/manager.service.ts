@@ -1,7 +1,7 @@
 import { Injectable, Output, EventEmitter, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
-import { SidemenuService, SidemenuButton } from "../sidemenu";
-import { Table, Item } from "../model";
+import { SidemenuService, SidemenuButton } from "../../sidemenu";
+import { Table, Item } from "../../@model";
 
 /**
  * Abstract Manager service which provides generic selection functionality

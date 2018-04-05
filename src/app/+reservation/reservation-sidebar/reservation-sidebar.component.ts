@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as _ from "lodash";
 
-import { Reservation, ReservationStatus, Restaurant, Table } from '../../shared/model';
-import { ReservationManagerService } from '../reservation-manager.service';
-import { TableManagerService } from '../../shared/table-overview/table-manager.service';
+import { Reservation, ReservationStatus, Restaurant, Table } from '../../shared/@model';
+import { ReservationManagerService, TableManagerService } from '../../shared/@services';
 
 @Component({
   selector: 'rs-reservation-sidebar',

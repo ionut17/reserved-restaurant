@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { TableManagerService } from '../@services';
 import { TableOverviewComponent } from './table-overview.component';
 import { TableGroupComponent } from './table-group/table-group.component';
 import { TableComponent } from './table/table.component';
-import { TableManagerService } from './table-manager.service';
-import { CoreModule } from '../core';
+import { CoreModule } from '../core/core.module';
 import { TimeboxModule } from '../timebox/timebox.module';
 
 const moduleComponents = [

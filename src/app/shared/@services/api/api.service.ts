@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs/Observable';
 
-import { environment } from '../../../environments/environment';
-import { Item } from '../model';
+import { environment } from '../../../../environments/environment';
+import { Item } from '../../@model';
 
 export class ApiService<T extends Item>{
 

@@ -6,11 +6,10 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
 import { ApiService } from "./api.service";
-import { Restaurant, Reservation, ReservationStatus } from "../model";
-import { SocketService } from "./socket.service";
-import { environment } from "../../../environments/environment";
+import { Restaurant, Reservation, ReservationStatus, ReservationConfigHttp } from "../../@model";
+import { SocketService } from "../socket/socket.service";
+import { environment } from "../../../../environments/environment";
 import { ReservationService, reservationEndpoint } from "./reservation.service";
-import { ReservationConfigHttp } from "../model/reservation/reservation-config-http.interface";
 
 export const restaurantEndpoint: string = 'restaurants';
 

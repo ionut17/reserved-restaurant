@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { SocketService } from './shared/services/socket.service';
+import { SocketService } from './shared/@services';
 import { SidemenuService } from './shared/sidemenu';
 
 @Component({

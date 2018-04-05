@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { CoreModule } from '../core/core.module';
+import { TimeboxService } from './timebox.service';
 import { TimeboxComponent } from './timebox.component';
 import { TimeboxEntryComponent } from './timebox-entry/timebox-entry.component';
-import { CoreModule } from '../core';
-import { TimeboxService } from './timebox.service';
 
 const moduleComponents = [
   TimeboxComponent

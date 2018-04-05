@@ -1,5 +1,5 @@
 import { SidemenuButton } from "../../shared/sidemenu";
-import { ReservationStatus, Reservation, Table, ReservationDto } from "../../shared/model";
+import { ReservationStatus, Reservation, Table, ReservationDto } from "../../shared/@model";
 
 export const sidemenuButtons: SidemenuButton[] = [{
 	label: "Ocupa",

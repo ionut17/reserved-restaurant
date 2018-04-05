@@ -1,13 +1,14 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
 
-import { SidemenuService, SidemenuButton } from "../sidemenu";
-import { freeTableButtons, occupiedTableButtons } from "./model";
-import { Table, Reservation, ReservationStatus } from "../model";
-import { ManagerService } from "../services/manager.service";
-import { ReservationManagerService } from "../../+reservation/reservation-manager.service";
-import { ReservationService, RestaurantService } from "../services";
-import { RestaurantManagerService } from "../../+reservation/restaurant-manager.service";
+import { SidemenuService, SidemenuButton } from "../../sidemenu";
+import { freeTableButtons, occupiedTableButtons } from "~/../../src/app/shared/table-overview/model";
+import { Table, Reservation, ReservationStatus } from "../../@model";
+
+import { ManagerService } from "./manager.service";
+import { RestaurantManagerService } from "./restaurant-manager.service";
+import { ReservationManagerService } from "./reservation-manager.service";
+import { ReservationService, RestaurantService } from "../api";
 
 @Injectable()
 export class TableManagerService {

@@ -4,8 +4,9 @@ import { Subject } from 'rxjs/Subject';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+
+import { Openable } from '../../@model';
 import { ValueAccessorBase } from '../shared';
-import { Openable } from '../../services/interfaces';
 import { PickerComponent } from '../shared/picker/picker.component';
 
 export const CUSTOM_TIMEPICKER_CONTROL_VALUE_ACCESSOR: any = {

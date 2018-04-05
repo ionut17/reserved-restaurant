@@ -1,5 +1,5 @@
 import { SidemenuButton } from "../../sidemenu";
-import { ReservationDto, ReservationStatus, Table } from "../../model";
+import { ReservationDto, ReservationStatus, Table } from "../../@model";
 import { Moment } from 'moment';
 import * as moment from 'moment';
 

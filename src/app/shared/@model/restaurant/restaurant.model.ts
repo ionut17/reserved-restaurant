@@ -1,5 +1,5 @@
 import { Item } from "../item.model";
-import { Table } from "../table.model";
+import { Table } from "./table.model";
 import { WeekDay } from './week-day.enum';
 import { TimeInterval } from './time-interval.model';
 

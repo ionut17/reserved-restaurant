@@ -1,11 +1,11 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { Subscription } from 'rxjs/Subscription';
 
-import { Reservation, ReservationStatus, Restaurant } from "../shared/model";
-import { sidemenuButtons } from "./model";
-import { ManagerService } from "../shared/services/manager.service";
-import { ReservationService } from "../shared/services";
-import { TableManagerService } from "../shared/table-overview/table-manager.service";
+import { Reservation, ReservationStatus, Restaurant } from "../../@model";
+import { ManagerService } from "./manager.service";
+import { TableManagerService } from "./table-manager.service";
+
+import { ReservationService } from "../api";
 
 @Injectable()
 export class RestaurantManagerService {

@@ -1,8 +1,8 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { Subscription } from 'rxjs/Subscription';
-
-import { ManagerService } from "../services";
 import { Moment } from "moment";
+
+import { ManagerService } from "../@services";
 
 @Injectable()
 export class TimeboxService {

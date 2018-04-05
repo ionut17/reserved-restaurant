@@ -1,5 +1,6 @@
 <section class="pickers-container">
 	<rs-date-picker [saveButton]="false" [closeButton]="false" [(ngModel)]="value"></rs-date-picker>
 	<rs-time-picker [saveButton]="false" [closeButton]="false" [(ngModel)]="value"></rs-time-picker>
+	<rs-icon *ngIf="closeButton" class="close-icon" name="close" (click)="onClose()"></rs-icon>
 </section>
 <button *ngIf="saveButton" class="save" (click)="onSave()">Salveaza</button>

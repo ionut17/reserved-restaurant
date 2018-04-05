@@ -3,9 +3,10 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+
+import { Openable } from '../../@model';
 import { ValueAccessorBase } from '../shared';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
-import { Openable } from '../../services/interfaces';
 
 export const CUSTOM_DATETIMEPICKER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

@@ -1,14 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Restaurant, Reservation, SocketEntityWrapper } from '../shared/model';
-import { SocketPayloadAction } from '../shared/model/socket/socket-payload-action.enum';
 import { Subscription } from 'rxjs/Subscription';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import * as Stomp from "stompjs";
 
-import { SocketService, RestaurantService, reservationEndpoint } from '../shared/services';
+import { Restaurant, Reservation, SocketEntityWrapper, SocketPayloadAction } from '../shared/@model';
+import { SocketService, RestaurantService, reservationEndpoint, RestaurantManagerService } from '../shared/@services';
 import { TimeboxService } from '../shared/timebox/timebox.service';
-import { RestaurantManagerService } from './restaurant-manager.service';
 
 const restaurantId: string = 'd3c498c1-fae8-445f-ab57-abfc7481cf93';
 
