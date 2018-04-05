@@ -45,6 +45,9 @@ export class TableManagerService {
 		if (this.isSelected(item)) {
 			this.deselect(item, menuInteraction);
 		} else {
+			if (this.isDisabled(item) || this.selectedItems.length > 0 && this.isDisabled(this.selectedItems[0])){
+				this.selectedItems = [];
+			}
 			this.selectedItems.push(item);
 			this.selectedItemChange.emit(this.selectedItems);
 			if (menuInteraction) this.sidemenuService.showMenu(currentButtons);
