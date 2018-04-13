@@ -17,15 +17,42 @@ export const sidemenuButtons: SidemenuButton[] = [{
 		this.sidemenuService.hideMenu();
 	})
 }, {
+	label: "Modifica",
+	icon: "edit",
+	clickCallback: (function () {
+		if (this.hasSelected()) {
+			const reservation: ReservationDto = this.selectedItem as ReservationDto;
+			reservation.clientId = this.selectedItem.client.id;
+			reservation.tables = this.tableManagerService.selectedItems.map((table: Table) => table.id);
+			this.reservationService.update(reservation).subscribe((res) => {
+			});
+		};
+		this.sidemenuService.hideMenu();
+	})
+}, {
 	label: "Absent",
 	icon: "ban",
 	clickCallback: (function () {
+		if (this.hasSelected()) {
+			const reservation: ReservationDto = this.selectedItem as ReservationDto;
+			reservation.clientId = this.selectedItem.client.id;
+			reservation.status = ReservationStatus.Absent;
+			this.reservationService.update(reservation).subscribe((res) => {
+			});
+		};
 		this.sidemenuService.hideMenu();
 	})
 }, {
 	label: "Sterge",
 	icon: "times-circle",
 	clickCallback: (function () {
+		if (this.hasSelected()) {
+			const reservation: ReservationDto = this.selectedItem as ReservationDto;
+			reservation.clientId = this.selectedItem.client.id;
+			reservation.status = ReservationStatus.Canceled;
+			this.reservationService.update(reservation).subscribe((res) => {
+			});
+		};
 		this.sidemenuService.hideMenu();
 	})
 }];
