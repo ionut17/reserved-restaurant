@@ -31,7 +31,7 @@ export class DatePickerComponent extends ValueAccessorBase<Moment> implements On
   @Output() close: Subject<any> = new Subject<any>();
 
   minDate: Moment;
-  private tempDate: Moment = moment();
+  tempDate: Moment = moment();
 
   get formattedDate(): string {
     return this.tempDate ? this.tempDate.format('DD MMM YYYY') : "";

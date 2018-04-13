@@ -13,7 +13,7 @@ export class ReservationSidebarComponent implements OnInit {
 
   @Input() reservations: Map<string, Reservation> = new Map();
   @Input() restaurant: Restaurant;
-  private internalReservations: Reservation[] = [];
+  internalReservations: Reservation[] = [];
 
   constructor(private reservationManagerService: ReservationManagerService,
     private tableManagerService: TableManagerService) { }

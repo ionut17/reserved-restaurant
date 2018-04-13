@@ -18,8 +18,8 @@ import { DatetimePickerComponent } from '../core/datetime-picker/datetime-picker
 })
 export class TimeboxComponent implements OnInit, OnDestroy {
 
-  private currentTime: Moment = moment();
-  private selectedTime: Moment;
+  currentTime: Moment = moment();
+  selectedTime: Moment;
   private intervalSubscription: Subscription;
 
   constructor(private ngZone: NgZone,
