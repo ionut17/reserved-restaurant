@@ -1,0 +1,14 @@
+@import '../shared/base-form.component.scss';
+
+input{
+	@extend %form-component;
+}
+
+//Reset number input
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}

@@ -1,0 +1,9 @@
+@import '../shared/base-form.component.scss';
+
+select{
+	@extend %form-component;
+	outline: none;
+	&:focus{
+		outline: none;
+	}
+}

@@ -1,0 +1,4 @@
+<select [(ngModel)]="value">
+  <option *ngIf="placeholder" value='undefined' selected>{{placeholder}}</option>
+  <option *ngFor="let item of items" [value]="getValue(item)">{{getLabel(item)}}</option>
+</select>
