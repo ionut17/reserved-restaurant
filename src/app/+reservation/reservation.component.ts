@@ -4,7 +4,7 @@ import { Moment } from 'moment';
 import * as moment from 'moment';
 import * as Stomp from "stompjs";
 
-import { Restaurant, Reservation, SocketEntityWrapper, SocketPayloadAction } from '../shared/@model';
+import { Restaurant, Reservation, SocketEntityWrapper, SocketPayloadAction, ReservationFull } from '../shared/@model';
 import { SocketService, RestaurantService, reservationEndpoint, RestaurantManagerService } from '../shared/@services';
 import { TimeboxService } from '../shared/timebox/timebox.service';
 
@@ -19,6 +19,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   restaurant: Restaurant;
   reservations: Map<string, Reservation>;
+  fullReservations: Map<string, ReservationFull>;
 
   private restaurantServiceSubscription: Subscription;
   private restaurantReservationsSubscription: Subscription;
@@ -47,25 +48,26 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   private syncReservations(message: Stomp.Message) {
     const socketResponse: SocketEntityWrapper = JSON.parse(message.body) as SocketEntityWrapper;
-    const reservation: Reservation = socketResponse.socketEntity as Reservation;
+    const reservation: ReservationFull = socketResponse.socketEntity as ReservationFull;
     switch (socketResponse.action) {
       case SocketPayloadAction.Created:
-        this.reservations.set(reservation.id, reservation);
+        this.fullReservations.set(reservation.id, reservation);
         break;
       case SocketPayloadAction.Updated:
-        if (this.reservations.has(reservation.id)) {
+        if (this.fullReservations.has(reservation.id)) {
           if (moment(reservation.endTime).isAfter(moment())){
-            this.reservations.set(reservation.id, reservation);
+            this.fullReservations.set(reservation.id, reservation);
           } else{
-            this.reservations.delete(reservation.id);
+            this.fullReservations.delete(reservation.id);
           }
         }
         break;
       case SocketPayloadAction.Deleted:
-        this.reservations.delete(reservation.id);
+        this.fullReservations.delete(reservation.id);
         break;
     }
-    this.reservations = new Map(this.reservations); //Drop old cached version
+    this.fullReservations = new Map(this.fullReservations); //Drop old cached version
+    this.reservations = this.full2BaseReservations(this.fullReservations);
   }
 
   private initialize() {
@@ -89,14 +91,26 @@ export class ReservationComponent implements OnInit, OnDestroy {
       this.restaurantReservationsSubscription = this.restaurantService
         .getReservationsById(restaurantId, {
           startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
-        }).subscribe((res: Reservation[]) => {
-          this.reservations = new Map();
-          res.forEach((reservation: Reservation) => {
-            this.reservations.set(reservation.id, reservation);
+        }).subscribe((res: ReservationFull[]) => {
+          console.log(res);
+          this.fullReservations = new Map();
+          res.forEach((reservationFull: ReservationFull) => {
+            this.fullReservations.set(reservationFull.id, reservationFull);
           });
+          this.reservations = this.full2BaseReservations(this.fullReservations);
         });
     });
     this.timeboxService.selectedItemChange.emit();
+  }
+
+  private full2BaseReservations(fullReservations: Map<string, ReservationFull>):Map<string, Reservation>{
+    let baseReservations: Map<string, Reservation> = new Map();
+    fullReservations.forEach((reservationFull: ReservationFull)=>{
+      baseReservations.set(reservationFull.id, Object.assign({
+        'clientId': reservationFull.client.id
+      }, reservationFull));
+    });
+    return baseReservations;
   }
 
 }

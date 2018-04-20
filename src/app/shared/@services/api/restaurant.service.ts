@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from "./api.service";
-import { Restaurant, Reservation, ReservationConfigHttp } from "../../@model";
+import { Restaurant, Reservation, ReservationFull, ReservationConfigHttp } from "../../@model";
 import { reservationEndpoint } from "./reservation.service";
 
 export const restaurantEndpoint: string = 'restaurants';
@@ -15,8 +15,12 @@ export class RestaurantService extends ApiService<Restaurant>{
 		super(http, restaurantEndpoint);
 	}
 
-	getReservationsById(id: string, config: ReservationConfigHttp): Observable<Array<Reservation>> {
-		return this.http.get(`${this.apiPath}/${id}/${reservationEndpoint}`, { params: { ...config } }) as Observable<Array<Reservation>>;
+	getReservationsById(id: string, config: ReservationConfigHttp): Observable<Array<ReservationFull>> {
+		return this.http.get(`${this.apiPath}/${id}/${reservationEndpoint}`, { params: { ...config } }) as Observable<Array<ReservationFull>>;
+	}
+
+	getCurrentReservationsById(id: string, config: ReservationConfigHttp): Observable<Array<ReservationFull>> {
+		return this.http.get(`${this.apiPath}/${id}/${reservationEndpoint}/current`, { params: { ...config } }) as Observable<Array<ReservationFull>>;
 	}
 
 }

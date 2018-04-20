@@ -1,5 +1,5 @@
 import { SidemenuButton } from "../../sidemenu";
-import { ReservationDto, ReservationStatus, Table } from "../../@model";
+import { Reservation, ReservationStatus, Table } from "../../@model";
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
@@ -9,7 +9,8 @@ export const freeTableButtons: SidemenuButton[] = [{
 	important: true,
 	clickCallback: (function () {
 		if (this.hasSelected()) {
-			const waiterReservation: ReservationDto = {
+			const waiterReservation: Reservation = {
+				id: null,
 				clientId: this.restaurantManagerService.selectedItem.defaultClientId,
 				restaurantId: this.restaurantManagerService.selectedItem.id,
 				startTime: moment().toDate(),
@@ -38,7 +39,6 @@ export const occupiedTableButtons: SidemenuButton[] = [{
 		if (this.hasSelected()) {
 			this.selectedItems.forEach((table: Table) => {
 				const reservation: any = this.getFullfilledReservationByTable(table);
-				reservation.clientId = reservation.client.id;
 				reservation.endTime = moment().toDate();
 				this.reservationService.update(reservation).subscribe((res) => { });
 			});

@@ -8,7 +8,7 @@ import { Table, Reservation, ReservationStatus } from "../../@model";
 import { ManagerService } from "./manager.service";
 import { RestaurantManagerService } from "./restaurant-manager.service";
 import { ReservationManagerService } from "./reservation-manager.service";
-import { ReservationService, RestaurantService } from "../api";
+import { RestaurantService, ReservationService } from "../api";
 
 @Injectable()
 export class TableManagerService {

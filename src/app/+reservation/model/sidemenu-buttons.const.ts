@@ -1,5 +1,5 @@
 import { SidemenuButton } from "../../shared/sidemenu";
-import { ReservationStatus, Reservation, Table, ReservationDto } from "../../shared/@model";
+import { ReservationStatus, Reservation, Table } from "../../shared/@model";
 
 export const sidemenuButtons: SidemenuButton[] = [{
 	label: "Ocupa",
@@ -7,8 +7,7 @@ export const sidemenuButtons: SidemenuButton[] = [{
 	important: true,
 	clickCallback: (function () {
 		if (this.hasSelected()) {
-			const reservation: ReservationDto = this.selectedItem as ReservationDto;
-			reservation.clientId = this.selectedItem.client.id;
+			const reservation: Reservation = Object.assign({}, this.selectedItem);
 			reservation.status = ReservationStatus.Fulfilled;
 			reservation.tables = this.tableManagerService.selectedItems.map((table: Table) => table.id);
 			this.reservationService.update(reservation).subscribe((res) => {
@@ -21,8 +20,7 @@ export const sidemenuButtons: SidemenuButton[] = [{
 	icon: "edit",
 	clickCallback: (function () {
 		if (this.hasSelected()) {
-			const reservation: ReservationDto = this.selectedItem as ReservationDto;
-			reservation.clientId = this.selectedItem.client.id;
+			const reservation: Reservation = Object.assign({}, this.selectedItem);
 			reservation.tables = this.tableManagerService.selectedItems.map((table: Table) => table.id);
 			this.reservationService.update(reservation).subscribe((res) => {
 			});
@@ -34,8 +32,7 @@ export const sidemenuButtons: SidemenuButton[] = [{
 	icon: "ban",
 	clickCallback: (function () {
 		if (this.hasSelected()) {
-			const reservation: ReservationDto = this.selectedItem as ReservationDto;
-			reservation.clientId = this.selectedItem.client.id;
+			const reservation: Reservation = Object.assign({}, this.selectedItem);
 			reservation.status = ReservationStatus.Absent;
 			this.reservationService.update(reservation).subscribe((res) => {
 			});
@@ -47,8 +44,7 @@ export const sidemenuButtons: SidemenuButton[] = [{
 	icon: "times-circle",
 	clickCallback: (function () {
 		if (this.hasSelected()) {
-			const reservation: ReservationDto = this.selectedItem as ReservationDto;
-			reservation.clientId = this.selectedItem.client.id;
+			const reservation: Reservation = Object.assign({}, this.selectedItem);
 			reservation.status = ReservationStatus.Canceled;
 			this.reservationService.update(reservation).subscribe((res) => {
 			});
