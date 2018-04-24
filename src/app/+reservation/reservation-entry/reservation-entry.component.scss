@@ -27,10 +27,16 @@
 		background: $gradient-yellow;
 	}
 }
+:host(.is-overdue){
+	.reservation-name, .reservation-details ::ng-deep li span{
+		color: $accent-1 !important;
+	}
+}
 
 .entry-content{
 	@include padding(2);
 	flex: 1;
+	min-width: 0;
 
 	.reservation-name{
 		font-size: 3rem;
@@ -57,6 +63,11 @@
 				font-size: 3rem;
 				font-weight: 700;
 			}
+			span.day{
+				color: $dark-1;
+				font-size: 2rem;
+				margin-left: nth($margins, 1);
+			}
 
 			& + li{
 				margin-left: 20px;
@@ -70,6 +81,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-shrink: 0;
 	cursor: pointer;
 
 	width: 120px;

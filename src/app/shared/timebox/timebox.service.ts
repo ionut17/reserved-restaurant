@@ -1,6 +1,7 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { Subscription } from 'rxjs/Subscription';
 import { Moment } from "moment";
+import * as moment from "moment";
 
 import { ManagerService } from "../@services";
 

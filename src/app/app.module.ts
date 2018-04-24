@@ -6,11 +6,12 @@ import { RouterModule, Router } from '@angular/router';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
-import { PopupService, SocketService } from './shared/@services';
+import { PopupService, SocketService, UtilService } from './shared/@services';
 import { CoreModule } from './shared/core';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PipesModule } from './shared/@pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,10 @@ import { AppRoutingModule } from './app-routing.module';
     MatMomentDateModule,
     NoopAnimationsModule,
     CoreModule,
+    PipesModule,
     SidemenuModule
   ],
-  providers: [PopupService, SocketService],
+  providers: [PopupService, SocketService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

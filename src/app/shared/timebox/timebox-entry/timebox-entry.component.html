@@ -1,5 +1,5 @@
 <rs-icon name="clock-o" size="3x"></rs-icon>
 <section class="time-wrapper">
-	<h5 *ngIf="type == TimeboxEntryType.Selected">{{formattedDate}}</h5>
-	<h4>{{formattedTime}}</h4>
+	<h5 *ngIf="type == TimeboxEntryType.Selected">{{time | ldate:dateFormat}}</h5>
+	<h4>{{time | ldate:timeFormat}}</h4>
 </section>

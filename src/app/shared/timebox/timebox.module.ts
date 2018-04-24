@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { CoreModule } from '../core/core.module';
+import { PipesModule } from '../@pipes';
 import { TimeboxService } from './timebox.service';
 import { TimeboxComponent } from './timebox.component';
 import { TimeboxEntryComponent } from './timebox-entry/timebox-entry.component';
@@ -15,6 +16,7 @@ const moduleComponents = [
   imports: [
     CommonModule,
     CoreModule,
+    PipesModule,
     FormsModule
   ],
   declarations: [moduleComponents, TimeboxEntryComponent],

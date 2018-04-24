@@ -8,7 +8,8 @@
       </li>
       <li>
         <rs-icon name="clock-o" size="2x"></rs-icon>
-        <span>{{ reservation.startTime | date:'HH:mm' }}</span>
+        <span class='time'>{{ reservation.startTime | ldate:'HH:mm' }}</span>
+        <span class='day'>{{ reservation.startTime | ldate:'D.M' }}</span>
       </li>
     </ul>
 </section>

@@ -1,5 +1,6 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
+import * as moment from 'moment';
 
 import { SidemenuService, SidemenuButton } from "../../sidemenu";
 import { freeTableButtons, occupiedTableButtons } from "~/../../src/app/shared/table-overview/model";
@@ -9,6 +10,7 @@ import { ManagerService } from "./manager.service";
 import { RestaurantManagerService } from "./restaurant-manager.service";
 import { ReservationManagerService } from "./reservation-manager.service";
 import { RestaurantService, ReservationService } from "../api";
+import { TimeboxService } from "../../timebox/timebox.service";
 
 @Injectable()
 export class TableManagerService {
@@ -23,6 +25,7 @@ export class TableManagerService {
 	private fulfilledReservationsTableIds: string[] = [];
 
 	constructor(private sidemenuService: SidemenuService,
+				private timeboxService: TimeboxService,
 				private restaurantManagerService: RestaurantManagerService,
 				private reservationService: ReservationService) {
 		this.sidemenuService.onClose().subscribe(() => {
@@ -106,8 +109,16 @@ export class TableManagerService {
 		});
 		this.fulfilledReservationsTableIds = [];
 		this.fulfilledReservations.forEach((entry: Reservation) => {
-			this.fulfilledReservationsTableIds.push(...entry.tables);
+			if (this.isUndergoing(entry)){
+				this.fulfilledReservationsTableIds.push(...entry.tables);
+			}
 		});
+	}
+
+	private isUndergoing(reservation: Reservation):boolean{
+		const current: moment.Moment = this.timeboxService.selectedItem;
+		return moment.utc(reservation.startTime).isSameOrBefore(current)
+				&& reservation.endTime ? moment.utc(reservation.endTime).isSameOrAfter(current) : true;
 	}
 
 }

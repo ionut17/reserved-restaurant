@@ -1,6 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding, ElementRef, Renderer2 } from '@angular/core';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 import { Reservation } from '../../shared/@model';
+import { LdatePipe } from '../../shared/@pipes/ldate.pipe';
+import { TimeboxService } from '../../shared/timebox/timebox.service';
 
 @Component({
   selector: 'rs-reservation-entry',
@@ -15,7 +19,18 @@ export class ReservationEntryComponent implements OnInit {
 
   @Output() select: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  @HostBinding('class.is-overdue') get isOverdue():boolean{
+    if (this.timeboxService.selectedItem){
+      return false;
+    }
+    const startTime: Moment = this.ldate.transform(this.reservation.startTime) as Moment;
+    return startTime.isBefore(moment(), 'minute');
+  }
+
+  constructor(private ldate: LdatePipe,
+              private timeboxService: TimeboxService,
+              private hostRef: ElementRef,
+              private renderer: Renderer2) { }
 
   ngOnInit() {
   }

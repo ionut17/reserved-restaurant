@@ -20,17 +20,9 @@ export class TimeboxEntryComponent {
   @Input() @HostBinding('class') type: TimeboxEntryType = TimeboxEntryType.Normal;
 
   TimeboxEntryType: typeof TimeboxEntryType = TimeboxEntryType;
-  private timeFormat: string = "HH:mm";
-  private dateFormat: string = "DD MMM YYYY";
+  timeFormat: string = "HH:mm";
+  dateFormat: string = "DD MMM YYYY";
 
   constructor() { }
-
-  get formattedTime(): string {
-    return this.time.format(this.timeFormat);
-  }
-
-  get formattedDate(): string {
-    return this.time.format(this.dateFormat);
-  }
 
 }
