@@ -19,7 +19,6 @@ export const freeTableButtons: SidemenuButton[] = [{
 				people: 1,
 				tables: this.selectedItems.map((table: Table) => table.id)
 			};
-			console.log(waiterReservation);
 			this.reservationService.post(waiterReservation).subscribe((res) => { });
 		};
 		this.sidemenuService.hideMenu();

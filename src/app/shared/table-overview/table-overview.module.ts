@@ -7,6 +7,7 @@ import { TableGroupComponent } from './table-group/table-group.component';
 import { TableComponent } from './table/table.component';
 import { CoreModule } from '../core/core.module';
 import { TimeboxModule } from '../timebox/timebox.module';
+import { PipesModule } from '../@pipes';
 
 const moduleComponents = [
   TableOverviewComponent,
@@ -18,6 +19,7 @@ const moduleComponents = [
   imports: [
     CommonModule,
     CoreModule,
+    PipesModule,
     TimeboxModule
   ],
   providers: [TableManagerService],

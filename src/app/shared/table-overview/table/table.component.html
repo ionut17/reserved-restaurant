@@ -2,7 +2,7 @@
   <div *ngFor="let chair of [1,2,3,4,5,6]" class='chair'></div>
 </figure>
 <section class="table-number">{{table.number}}</section>
-<section *ngIf="false && !disabled" class="table-content">
+<section *ngIf="!disabled && nextReservation" class="table-content">
   <span>Rezervat</span>
-  <h4>{{table.reservedHour}}</h4>
+  <h4>{{nextReservation.startTime | ldate:'HH:mm'}}</h4>
 </section>

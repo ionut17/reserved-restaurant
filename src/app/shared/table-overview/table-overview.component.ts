@@ -4,6 +4,7 @@ import { Table, Reservation, ReservationStatus } from '../@model';
 import { ReservationManagerService, TableManagerService } from '../@services';
 import { SidemenuService } from '../sidemenu/sidemenu.service';
 import { TimeboxComponent } from '../timebox/timebox.component';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'rs-table-overview',
@@ -39,6 +40,10 @@ export class TableOverviewComponent implements OnInit {
 
   isDisabled(table: Table): boolean {
     return this.tableManagerService.isDisabled(table);
+  }
+
+  nextReservation(table: Table): Reservation{
+    return this.tableManagerService.getPendingReservationByTable(table);
   }
 
   selectTable(event: Event, table: Table): void {

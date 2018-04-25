@@ -57,9 +57,9 @@ export class DatePickerComponent extends ValueAccessorBase<Moment> implements On
   }
 
   onSave() {
-    this.value.year(this.tempDate.years());
-    this.value.month(this.tempDate.months());
-    this.value.date(this.tempDate.dates());
+    this.value.year(this.tempDate.year());
+    this.value.month(this.tempDate.month());
+    this.value.date(this.tempDate.date());
     this.save.next(this.value);
   }
 

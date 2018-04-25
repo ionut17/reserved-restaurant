@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { Table } from '../../@model';
+import { Table, Reservation } from '../../@model';
 
 @Component({
   selector: 'rs-table',
@@ -9,6 +9,8 @@ import { Table } from '../../@model';
 export class TableComponent implements OnInit {
 
   @Input() table: Table;
+
+  @Input() nextReservation: Reservation;
 
   @Input() @HostBinding('class.is-selected') selected: boolean = false;
 

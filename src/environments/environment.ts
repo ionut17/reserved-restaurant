@@ -5,10 +5,10 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://rs-api:8080/api',
+  apiEndpoint: 'http://167.99.245.240:8080/api',
   apiVersion: 'v1',
   socket: {
-    endpoint: 'http://rs-api:8080',
+    endpoint: 'http://167.99.245.240:8080',
     inbound: 'updates',
     outbound: 'app'
   }

@@ -22,6 +22,10 @@ export class TableManagerService {
 
 	private pendingReservations: Map<string, Reservation> = new Map();
 	private fulfilledReservations: Map<string, Reservation> = new Map();
+	/**
+	 * The reservations split by the table which they belong to
+	 */
+	private tableReservations: Map<string, Reservation> = new Map();
 	private fulfilledReservationsTableIds: string[] = [];
 
 	constructor(private sidemenuService: SidemenuService,
@@ -57,10 +61,6 @@ export class TableManagerService {
 		}
 	}
 
-	isDisabled(table: Table): boolean {
-		return this.fulfilledReservationsTableIds.indexOf(table.id) > -1;
-	}
-
 	hasSelected(): boolean {
 		return this.selectedItems.length > 0;
 	}
@@ -84,29 +84,44 @@ export class TableManagerService {
 		if (menuInteraction) this.sidemenuService.hideMenu();
 	}
 
+
+	isDisabled(table: Table): boolean {
+		return this.fulfilledReservationsTableIds.indexOf(table.id) > -1;
+	}
+
+	getPendingReservationByTable(table: Table): Reservation{
+		const res: Reservation = this.tableReservations.get(table.id);
+		return res && res.status === ReservationStatus.Pending ? res : undefined;
+	}
+
 	getFullfilledReservationByTable(table: Table): Reservation {
-		let foundReservation: Reservation;
-		this.fulfilledReservations.forEach((reservation: Reservation) => {
-			if (reservation.tables.indexOf(table.id) > -1) {
-				foundReservation = reservation;
-			}
-		});
-		return foundReservation;
+		const res: Reservation = this.tableReservations.get(table.id);
+		return res && res.status === ReservationStatus.Fulfilled ? res : undefined;
 	}
 
 	updateReservations(reservations: Map<string, Reservation>) {
 		this.pendingReservations = new Map();
 		this.fulfilledReservations = new Map();
+		this.tableReservations = new Map();
+		//For each reservation
 		reservations.forEach((res: Reservation) => {
+			//Separating pending / fulfilled reservations to optimize queries
 			switch (res.status) {
 				case ReservationStatus.Pending:
 					this.pendingReservations.set(res.id, res);
+					this.generateTableReservations(res);
 					break;
 				case ReservationStatus.Fulfilled:
 					this.fulfilledReservations.set(res.id, res);
+					this.generateTableReservations(res);
+					break;
+				case ReservationStatus.Canceled:
+				case ReservationStatus.Absent:
 					break;
 			}
+
 		});
+		//Optimization to store all the used tables ids for faster queries
 		this.fulfilledReservationsTableIds = [];
 		this.fulfilledReservations.forEach((entry: Reservation) => {
 			if (this.isUndergoing(entry)){
@@ -119,6 +134,22 @@ export class TableManagerService {
 		const current: moment.Moment = this.timeboxService.selectedItem;
 		return moment.utc(reservation.startTime).isSameOrBefore(current)
 				&& reservation.endTime ? moment.utc(reservation.endTime).isSameOrAfter(current) : true;
+	}
+
+	private generateTableReservations(res: Reservation){
+		//Adding reservations to table key map (only pending or fulfilled reservations)
+		res.tables.forEach((tableId:string)=>{
+			const previousReservation: Reservation = this.tableReservations.get(tableId);
+			//If there is a reservation on the table already, take the first occurring one
+			if (previousReservation){
+				if (moment.utc(previousReservation.startTime).isAfter(moment.utc(res.startTime))){
+					this.tableReservations.set(tableId, res);
+				}
+			} //Else just add it
+			else{
+				this.tableReservations.set(tableId, res);
+			}
+		});
 	}
 
 }

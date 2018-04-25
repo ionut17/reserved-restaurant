@@ -88,12 +88,10 @@ export class ReservationComponent implements OnInit, OnDestroy {
       //Dispose the old subscription
       if (this.restaurantReservationsSubscription) this.restaurantReservationsSubscription.unsubscribe();
       //Make the new subscription
-      console.log(moment().toISOString());
       this.restaurantReservationsSubscription = this.restaurantService
         .getReservationsById(restaurantId, {
           startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
         }).subscribe((res: ReservationFull[]) => {
-          console.log(res);
           this.fullReservations = new Map();
           res.forEach((reservationFull: ReservationFull) => {
             this.fullReservations.set(reservationFull.id, reservationFull);
