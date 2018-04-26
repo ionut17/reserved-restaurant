@@ -27,8 +27,10 @@
 		background: $gradient-yellow;
 	}
 }
-:host(.is-overdue){
-	.reservation-name, .reservation-details ::ng-deep li span{
+:host(.is-overdue:not(.is-selected)){
+	.reservation-name,
+	.reservation-details ::ng-deep li span,
+	.reservation-details ::ng-deep li rs-icon {
 		color: $accent-1 !important;
 	}
 }

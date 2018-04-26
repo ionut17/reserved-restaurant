@@ -54,8 +54,12 @@ export class TableOverviewComponent implements OnInit {
     const isReservationSelected: boolean = this.reservationManagerService.hasSelected();
     switch (isReservationSelected) {
       case true:
+        if (this.isDisabled(table)){
+          return;
+        }
         //In case of reservation selected, allow only the selection of other tables and without menu interaction
-        if (!(this.isSelected(table) && this.tableManagerService.selectedItems.length < 2)) {
+        const isLastTableSelected: boolean = this.isSelected(table) && this.tableManagerService.selectedItems.length < 2;
+        if (!isLastTableSelected) {
           this.tableManagerService.select(table, false);
         }
         break;
