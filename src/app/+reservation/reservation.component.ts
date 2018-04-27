@@ -83,7 +83,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
       this.restaurantService.getById(res[0].id).subscribe((restaurant: Restaurant) => {
         this.restaurantManagerService.select(restaurant);
         this.initializeReservations(restaurant.id);
-        // this.autoInitializeReservationsUpdate(restaurant);
+        this.autoInitializeReservationsUpdate(restaurant);
       });
     });
     //Initialize the socket and pass a callback function to get the message

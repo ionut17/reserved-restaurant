@@ -17,6 +17,9 @@ $table-border-radius: 20px;
 	figure:before{
 		background-color: $dark-2;
 	}
+	.table-capacity{
+		color: $light-2;
+	}
 	.table-number{
 		background-color: $accent-1;
 	}
@@ -36,6 +39,9 @@ $table-border-radius: 20px;
 	}
 }
 :host(.is-disabled){
+	.table-capacity{
+		display: none;
+	}
 	figure:after{
 		content: '';
 		background: $gradient-stripes;
@@ -54,7 +60,7 @@ $table-border-radius: 20px;
 .table-stats{
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
 	align-self: flex-end;
 
