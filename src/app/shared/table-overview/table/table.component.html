@@ -1,7 +1,13 @@
 <figure>
-  <div *ngFor="let chair of [1,2,3,4,5,6]" class='chair'></div>
+  <div *ngFor="let chair of tableChairs" class='chair'></div>
 </figure>
-<section class="table-number">{{table.number}}</section>
+<section class="table-stats">
+  <section class="table-capacity">
+    {{table.capacity}}
+    <rs-icon name="group" size="lg"></rs-icon>
+  </section>
+  <section class="table-number">{{table.number}}</section>
+</section>
 <section *ngIf="!disabled && nextReservation" class="table-content">
   <span>Rezervat</span>
   <h4>{{nextReservation.startTime | ldate:'HH:mm'}}</h4>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, SimpleChanges } from '@angular/core';
 import { Table, Reservation } from '../../@model';
 
 @Component({
@@ -18,9 +18,17 @@ export class TableComponent implements OnInit {
 
   @Input() @HostBinding('class.is-linked') linked: boolean = false;
 
+  tableChairs: any[] = [];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if (changes['table']){
+      this.tableChairs = Array(this.table.capacity);
+    }
   }
 
 }

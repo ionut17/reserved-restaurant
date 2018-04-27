@@ -11,7 +11,6 @@ import { CoreModule } from './shared/core';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PipesModule } from './shared/@pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { PipesModule } from './shared/@pipes/pipes.module';
     MatMomentDateModule,
     NoopAnimationsModule,
     CoreModule,
-    PipesModule,
     SidemenuModule
   ],
   providers: [PopupService, SocketService, UtilService],

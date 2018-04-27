@@ -5,11 +5,14 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://167.99.245.240:8080/api',
+  apiEndpoint: 'http://rs-api:8080/api',
   apiVersion: 'v1',
   socket: {
-    endpoint: 'http://167.99.245.240:8080',
+    endpoint: 'http://rs-api:8080',
     inbound: 'updates',
     outbound: 'app'
+  },
+  settings: {
+    reservationsUpdateInterval: 900000 //15min
   }
 };

@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import * as Stomp from "stompjs";
+import * as _ from "lodash";
 
-import { Restaurant, Reservation, SocketEntityWrapper, SocketPayloadAction, ReservationFull } from '../shared/@model';
+import { Restaurant, Reservation, SocketEntityWrapper, SocketPayloadAction, ReservationExtended } from '../shared/@model';
 import { SocketService, RestaurantService, reservationEndpoint, RestaurantManagerService } from '../shared/@services';
 import { TimeboxService } from '../shared/timebox/timebox.service';
+import { environment } from '../../environments/environment';
 
 const restaurantId: string = 'd3c498c1-fae8-445f-ab57-abfc7481cf93';
 
@@ -19,10 +22,11 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   restaurant: Restaurant;
   reservations: Map<string, Reservation>;
-  fullReservations: Map<string, ReservationFull>;
+  reservationsExtended: Map<string, ReservationExtended>;
 
   private restaurantServiceSubscription: Subscription;
   private restaurantReservationsSubscription: Subscription;
+  private intervalSubscription: Subscription;
 
   constructor(private restaurantService: RestaurantService,
               private restaurantManagerService: RestaurantManagerService,
@@ -44,70 +48,81 @@ export class ReservationComponent implements OnInit, OnDestroy {
     if (this.restaurantReservationsSubscription) {
       this.restaurantReservationsSubscription.unsubscribe();
     }
+    if (this.intervalSubscription){
+      this.intervalSubscription.unsubscribe();
+    }
   }
 
   private syncReservations(message: Stomp.Message) {
     const socketResponse: SocketEntityWrapper = JSON.parse(message.body) as SocketEntityWrapper;
-    const reservation: ReservationFull = socketResponse.socketEntity as ReservationFull;
+    const reservation: ReservationExtended = socketResponse.socketEntity as ReservationExtended;
     switch (socketResponse.action) {
       case SocketPayloadAction.Created:
-        this.fullReservations.set(reservation.id, reservation);
+        this.reservationsExtended.set(reservation.id, reservation);
         break;
       case SocketPayloadAction.Updated:
-        if (this.fullReservations.has(reservation.id)) {
+        if (this.reservationsExtended.has(reservation.id)) {
           if (moment(reservation.endTime).isAfter(moment())){
-            this.fullReservations.set(reservation.id, reservation);
+            this.reservationsExtended.set(reservation.id, reservation);
           } else{
-            this.fullReservations.delete(reservation.id);
+            this.reservationsExtended.delete(reservation.id);
           }
         }
         break;
       case SocketPayloadAction.Deleted:
-        this.fullReservations.delete(reservation.id);
+        this.reservationsExtended.delete(reservation.id);
         break;
     }
-    this.fullReservations = new Map(this.fullReservations); //Drop old cached version
-    this.reservations = this.full2BaseReservations(this.fullReservations);
+    this.reservationsExtended = new Map(this.reservationsExtended); //Drop old cached version
+    this.reservations = this.getBaseReservationsFrom(this.reservationsExtended);
   }
 
   private initialize() {
     //Restaurant subscription
     this.restaurantServiceSubscription = this.restaurantService.getAll().subscribe((res: Restaurant[]) => {
-      this.restaurantService.getById(res[1].id).subscribe((res: Restaurant) => {
-        this.restaurantManagerService.select(res);
-        this.initializeReservations(res.id);
+      this.restaurantService.getById(res[0].id).subscribe((restaurant: Restaurant) => {
+        this.restaurantManagerService.select(restaurant);
+        this.initializeReservations(restaurant.id);
+        // this.autoInitializeReservationsUpdate(restaurant);
       });
     });
     //Initialize the socket and pass a callback function to get the message
     this.socketService.initializeWebSocket(reservationEndpoint, this.syncReservations.bind(this));
   }
 
+  private autoInitializeReservationsUpdate(restaurant: Restaurant){
+    this.intervalSubscription = Observable.interval(environment.settings.reservationsUpdateInterval).subscribe(()=>{
+      console.log('reinit reservations');
+      this.initializeReservations(restaurant.id);
+    });
+  }
+
   private initializeReservations(restaurantId: string){
     //Reservations subscription when a time is selected (current time by default)
-    this.timeboxService.selectedItemChange.subscribe((res) => {
+    this.timeboxService.selectedItemChange.subscribe(() => {
       //Dispose the old subscription
       if (this.restaurantReservationsSubscription) this.restaurantReservationsSubscription.unsubscribe();
       //Make the new subscription
       this.restaurantReservationsSubscription = this.restaurantService
-        .getReservationsById(restaurantId, {
+        .getCurrentReservationsById(restaurantId, {
           startTime: this.timeboxService.hasSelected() ? this.timeboxService.selectedItem.toISOString() : moment().toISOString()
-        }).subscribe((res: ReservationFull[]) => {
-          this.fullReservations = new Map();
-          res.forEach((reservationFull: ReservationFull) => {
-            this.fullReservations.set(reservationFull.id, reservationFull);
+        }).subscribe((res: ReservationExtended[]) => {
+          this.reservationsExtended = new Map();
+          res.forEach((reservation: ReservationExtended) => {
+            this.reservationsExtended.set(reservation.id, reservation);
           });
-          this.reservations = this.full2BaseReservations(this.fullReservations);
+          this.reservations = this.getBaseReservationsFrom(this.reservationsExtended);
         });
     });
     this.timeboxService.selectedItemChange.emit();
   }
 
-  private full2BaseReservations(fullReservations: Map<string, ReservationFull>):Map<string, Reservation>{
+  private getBaseReservationsFrom(reservationsExtended: Map<string, ReservationExtended>):Map<string, Reservation>{
     let baseReservations: Map<string, Reservation> = new Map();
-    fullReservations.forEach((reservationFull: ReservationFull)=>{
-      baseReservations.set(reservationFull.id, Object.assign({
-        'clientId': reservationFull.client.id
-      }, reservationFull));
+    reservationsExtended.forEach((reservation: ReservationExtended)=>{
+      baseReservations.set(reservation.id, Object.assign({
+        'clientId': reservation.client.id
+      }, reservation));
     });
     return baseReservations;
   }
