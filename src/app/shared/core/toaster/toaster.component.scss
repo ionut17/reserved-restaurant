@@ -1,0 +1,53 @@
+@import 'commons';
+
+.toaster-wrapper{
+	@extend %component;
+	@include padding(2);
+	@include shadow(2);
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	background: red;
+
+	&.success{
+		background-color: $green-1;
+		color: rgba(0,0,0,0.8);
+	}
+	&.error{
+		background-color: $red-1;
+		color: $light-1;
+	}
+}
+
+.toaster-content, .toaster-actions{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.toaster-content{
+	flex: 1;
+	justify-content: flex-start;
+
+	rs-icon{
+		margin-right: nth($margins, 2);
+		opacity: 0.75;
+	}
+
+	h4{
+		font-size: 3rem;
+		font-weight: 400;
+		font-family: $font-family-text;
+	}
+}
+
+.toaster-actions{
+	justify-content: center;
+}
+
+//Actions
+.close{
+	cursor: pointer;
+}

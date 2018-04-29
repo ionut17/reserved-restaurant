@@ -1,0 +1,9 @@
+<section class='toaster-wrapper' [ngClass]="toaster.type">
+	<section class="toaster-content">
+		<rs-icon *ngIf="toaster.icon" [name]="toaster.icon" size="2x"></rs-icon>
+		<h4>{{toaster.message}}</h4>
+	</section>
+	<section class="toaster-actions">
+		<rs-icon class="close" name="times" size="2x" (click)="close()"></rs-icon>
+	</section>
+</section>

@@ -14,6 +14,7 @@ import { TimePickerComponent } from './time-picker/time-picker.component';
 import { PickerComponent } from './shared/picker/picker.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { PreloaderComponent } from './preloader/preloader.component';
+import { ToasterComponent } from './toaster/toaster.component';
 
 const moduleComponents = [
   HeaderComponent,
@@ -23,7 +24,8 @@ const moduleComponents = [
   TimePickerComponent,
   DatetimePickerComponent,
   DatePickerComponent,
-  PreloaderComponent
+  PreloaderComponent,
+  ToasterComponent
 ]
 
 @NgModule({
@@ -34,7 +36,7 @@ const moduleComponents = [
     MatDatepickerModule
   ],
   declarations: [moduleComponents, PickerComponent],
-  entryComponents: [DatetimePickerComponent, DatePickerComponent, TimePickerComponent],
+  entryComponents: [DatetimePickerComponent, DatePickerComponent, TimePickerComponent, ToasterComponent],
   exports: [moduleComponents]
 })
 export class CoreModule { }

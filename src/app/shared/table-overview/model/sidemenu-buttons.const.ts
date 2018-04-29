@@ -19,7 +19,13 @@ export const freeTableButtons: SidemenuButton[] = [{
 				people: 1,
 				tables: this.selectedItems.map((table: Table) => table.id)
 			};
-			this.reservationService.post(waiterReservation).subscribe((res) => { });
+			this.reservationService.post(waiterReservation).subscribe((res) => {
+				if (res.id){
+					this.toasterService.success("Masa a fost ocupată cu succes");
+				} else{
+					this.toasterService.error();
+				}
+			});
 		};
 		this.sidemenuService.hideMenu();
 	})
@@ -27,6 +33,7 @@ export const freeTableButtons: SidemenuButton[] = [{
 	label: "Rezerva",
 	icon: "plus-circle",
 	clickCallback: (function () {
+		this.toasterService.error("Funcționalitate indisponibilă");
 		this.sidemenuService.hideMenu();
 	})
 }];
@@ -40,7 +47,13 @@ export const occupiedTableButtons: SidemenuButton[] = [{
 			this.selectedItems.forEach((table: Table) => {
 				const reservation: any = this.getFullfilledReservationByTable(table);
 				reservation.endTime = moment().toDate();
-				this.reservationService.update(reservation).subscribe((res) => { });
+				this.reservationService.update(reservation).subscribe((res) => {
+					if (res.id){
+						this.toasterService.success("Masa a fost eliberată cu succes");
+					} else{
+						this.toasterService.error();
+					}
+				});
 			});
 		};
 		this.sidemenuService.hideMenu();

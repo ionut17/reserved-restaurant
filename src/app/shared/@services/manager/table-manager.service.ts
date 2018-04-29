@@ -11,6 +11,7 @@ import { RestaurantManagerService } from "./restaurant-manager.service";
 import { ReservationManagerService } from "./reservation-manager.service";
 import { RestaurantService, ReservationService } from "../api";
 import { TimeboxService } from "../../timebox/timebox.service";
+import { ToasterService } from "../toaster.service";
 
 @Injectable()
 export class TableManagerService {
@@ -31,7 +32,8 @@ export class TableManagerService {
 	constructor(private sidemenuService: SidemenuService,
 				private timeboxService: TimeboxService,
 				private restaurantManagerService: RestaurantManagerService,
-				private reservationService: ReservationService) {
+				private reservationService: ReservationService,
+				private toasterService: ToasterService) {
 		this.sidemenuService.onClose().subscribe(() => {
 			this.deselectAll(false);
 		});

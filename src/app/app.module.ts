@@ -6,7 +6,7 @@ import { RouterModule, Router } from '@angular/router';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
-import { PopupService, SocketService, UtilService } from './shared/@services';
+import { PopupService, SocketService, UtilService, ToasterService } from './shared/@services';
 import { CoreModule } from './shared/core';
 import { SidemenuModule, SidemenuService } from './shared/sidemenu';
 import { AppComponent } from './app.component';
@@ -26,7 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
     CoreModule,
     SidemenuModule
   ],
-  providers: [PopupService, SocketService, UtilService],
+  providers: [PopupService, ToasterService, SocketService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
