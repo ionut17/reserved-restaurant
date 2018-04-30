@@ -13,7 +13,7 @@ export const freeTableButtons: SidemenuButton[] = [{
 				id: null,
 				clientId: this.restaurantManagerService.selectedItem.defaultClientId,
 				restaurantId: this.restaurantManagerService.selectedItem.id,
-				startTime: moment().toDate(),
+				startTime: moment().toISOString(),
 				endTime: null,
 				status: ReservationStatus.Fulfilled,
 				people: 1,
@@ -46,7 +46,7 @@ export const occupiedTableButtons: SidemenuButton[] = [{
 		if (this.hasSelected()) {
 			this.selectedItems.forEach((table: Table) => {
 				const reservation: any = this.getFullfilledReservationByTable(table);
-				reservation.endTime = moment().toDate();
+				reservation.endTime = moment().toISOString();
 				this.reservationService.update(reservation).subscribe((res) => {
 					if (res.id){
 						this.toasterService.success("Masa a fost eliberată cu succes");

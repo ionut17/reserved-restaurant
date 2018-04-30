@@ -5,6 +5,7 @@ import { ReservationManagerService, TableManagerService } from '../@services';
 import { SidemenuService } from '../sidemenu/sidemenu.service';
 import { TimeboxComponent } from '../timebox/timebox.component';
 import { Moment } from 'moment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'rs-table-overview',
@@ -16,6 +17,8 @@ export class TableOverviewComponent implements OnInit {
   @Input() tables: Table[] = [];
   @Input() reservations: Map<string, Reservation> = new Map();
 
+  nextReservations: Map<string, Reservation> = new Map();
+
   constructor(private tableManagerService: TableManagerService,
               private reservationManagerService: ReservationManagerService) { }
 
@@ -24,9 +27,11 @@ export class TableOverviewComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tables'] && this.tables) {
       this.tables.sort((a: Table, b: Table) => a.number - b.number);
+      this.updateNextReservations();
     }
     if (changes['reservations'] && this.reservations) {
       this.tableManagerService.updateReservations(this.reservations);
+      this.updateNextReservations();
     }
   }
 
@@ -40,10 +45,6 @@ export class TableOverviewComponent implements OnInit {
 
   isDisabled(table: Table): boolean {
     return this.tableManagerService.isDisabled(table);
-  }
-
-  nextReservation(table: Table): Reservation{
-    return this.tableManagerService.getPendingReservationByTable(table);
   }
 
   selectTable(event: Event, table: Table): void {
@@ -67,6 +68,13 @@ export class TableOverviewComponent implements OnInit {
         this.tableManagerService.select(table);
         break;
     }
+  }
+
+  private updateNextReservations(){
+    this.tables.forEach((table: Table)=>{
+      const nextReservation: Reservation = this.tableManagerService.getPendingFutureReservationByTable(table);
+      this.nextReservations.set(table.id, nextReservation);
+    });
   }
 
 }

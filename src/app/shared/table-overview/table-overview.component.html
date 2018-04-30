@@ -7,7 +7,7 @@
 					[selected]="isSelected(table)"
 					[linked]="isSelected(table) && isLinked()"
 					[disabled]="isDisabled(table)"
-					[nextReservation]="nextReservation(table)"
+					[nextReservation]="nextReservations.get(table.id)"
 					(click)="selectTable($event, table)"></rs-table>
 	</ng-container>
 </section>

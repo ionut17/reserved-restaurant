@@ -81,9 +81,10 @@ export class ReservationSidebarComponent implements OnInit {
    * */
   private setReservationTime(reservation: ReservationExtended){
     const startTime: Moment = moment.utc(reservation.startTime);
-    const current: Moment = moment();
-    const chosenTime: Moment = startTime.isBefore(current) ? current : startTime;
-    this.timeboxService.select(chosenTime);
+    const now: Moment = moment();
+    if (startTime.isAfter(now)){
+      this.timeboxService.select(startTime);
+    }
   }
 
 }

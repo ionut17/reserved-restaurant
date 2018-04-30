@@ -1,38 +1,31 @@
 @import 'commons';
 
+$reservations-width: 400px;
+
 :host{
 	@extend %component;
-	display: grid;
-	grid-template-columns: 400px 1fr;
-	grid-template-rows: 60px 1fr;
-	grid-auto-columns: 0;
-	grid-auto-rows: 0;
-	grid-row-gap: 0;
-	grid-column-gap: 0;
-	grid-template-areas:
-		"header statusbar"
-		"sidebar content";
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 
 	height: 100vh;
 }
 
-rs-header, rs-reservation-list{
+rs-header, rs-reservation-statusbar{
+	height: $header-height;
+}
+rs-header, rs-reservation-sidebar{
 	@include shadow(2);
+	width: $reservations-width;
 }
-
-rs-header{
-	grid-area: header;
+rs-reservation-statusbar, rs-table-overview{
+	width: calc(100% - #{$reservations-width});
 }
-
-rs-reservation-statusbar{
-	grid-area: statusbar;
+rs-reservation-sidebar, rs-table-overview{
+	height: calc(100% - #{$header-height});
 }
-
-rs-reservation-sidebar{
-	grid-area: sidebar;
-}
-
 rs-table-overview{
-	grid-area: content;
 	padding-right: $sidemenu-width;
 }

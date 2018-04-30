@@ -1,5 +1,6 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
 import { Subscription } from "rxjs/Subscription";
+import { Moment } from 'moment';
 import * as moment from 'moment';
 
 import { SidemenuService, SidemenuButton } from "../../sidemenu";
@@ -23,10 +24,6 @@ export class TableManagerService {
 
 	private pendingReservations: Map<string, Reservation> = new Map();
 	private fulfilledReservations: Map<string, Reservation> = new Map();
-	/**
-	 * The reservations split by the table which they belong to
-	 */
-	private tableReservations: Map<string, Reservation> = new Map();
 	private fulfilledReservationsTableIds: string[] = [];
 
 	constructor(private sidemenuService: SidemenuService,
@@ -91,31 +88,39 @@ export class TableManagerService {
 		return this.fulfilledReservationsTableIds.indexOf(table.id) > -1;
 	}
 
-	getPendingReservationByTable(table: Table): Reservation{
-		const res: Reservation = this.tableReservations.get(table.id);
-		return res && res.status === ReservationStatus.Pending ? res : undefined;
+	getPendingFutureReservationByTable(table: Table): Reservation{
+		let found: Reservation;
+		this.pendingReservations.forEach((res:Reservation)=>{
+			const isOverdue: boolean = this.isReservationOverdue(res);
+			if (!isOverdue && res.tables.indexOf(table.id) > -1){
+				found = res;
+			}
+		});
+		return found;
 	}
 
 	getFullfilledReservationByTable(table: Table): Reservation {
-		const res: Reservation = this.tableReservations.get(table.id);
-		return res && res.status === ReservationStatus.Fulfilled ? res : undefined;
+		let found: Reservation;
+		this.fulfilledReservations.forEach((res:Reservation)=>{
+			if (res.tables.indexOf(table.id) > -1){
+				found = res;
+			}
+		});
+		return found;
 	}
 
 	updateReservations(reservations: Map<string, Reservation>) {
 		this.pendingReservations = new Map();
 		this.fulfilledReservations = new Map();
-		this.tableReservations = new Map();
 		//For each reservation
 		reservations.forEach((res: Reservation) => {
 			//Separating pending / fulfilled reservations to optimize queries
 			switch (res.status) {
 				case ReservationStatus.Pending:
 					this.pendingReservations.set(res.id, res);
-					this.generateTableReservations(res);
 					break;
 				case ReservationStatus.Fulfilled:
 					this.fulfilledReservations.set(res.id, res);
-					this.generateTableReservations(res);
 					break;
 				case ReservationStatus.Canceled:
 				case ReservationStatus.Absent:
@@ -138,20 +143,10 @@ export class TableManagerService {
 				&& reservation.endTime ? moment.utc(reservation.endTime).isSameOrAfter(current) : true;
 	}
 
-	private generateTableReservations(res: Reservation){
-		//Adding reservations to table key map (only pending or fulfilled reservations)
-		res.tables.forEach((tableId:string)=>{
-			const previousReservation: Reservation = this.tableReservations.get(tableId);
-			//If there is a reservation on the table already, take the first occurring one
-			if (previousReservation){
-				if (moment.utc(previousReservation.startTime).isAfter(moment.utc(res.startTime))){
-					this.tableReservations.set(tableId, res);
-				}
-			} //Else just add it
-			else{
-				this.tableReservations.set(tableId, res);
-			}
-		});
+	private isReservationOverdue(reservation):boolean{
+		const startTime: Moment = moment.utc(reservation.startTime);
+		const current: Moment =this.timeboxService.hasSelected() ? this.timeboxService.selectedItem : moment();
+    return startTime.isBefore(current, 'minute');
 	}
 
 }

@@ -9,6 +9,7 @@
 
 	width: 100%;
 	height: auto;
+	min-height: $header-height;
 }
 
 .accordion-title{
@@ -38,6 +39,9 @@
 
 .accordion-content{
 	width: 100%;
+	min-height: $header-height;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .is-rotated{

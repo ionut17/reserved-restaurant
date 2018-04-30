@@ -62,7 +62,8 @@ export class ReservationComponent implements OnInit, OnDestroy {
         break;
       case SocketPayloadAction.Updated:
         if (this.reservationsExtended.has(reservation.id)) {
-          if (moment(reservation.endTime).isAfter(moment())){
+          const now: Moment = moment();
+          if (moment.utc(reservation.endTime).isAfter(now)){
             this.reservationsExtended.set(reservation.id, reservation);
           } else{
             this.reservationsExtended.delete(reservation.id);
