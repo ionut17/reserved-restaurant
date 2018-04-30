@@ -15,24 +15,16 @@ $table-border-radius: 20px;
 }
 :host(.is-selected), :host(.is-linked){
 	figure:before{
-		background-color: $dark-2;
-	}
-	.table-capacity{
-		color: $light-2;
+		border: 5px solid $accent-1;
 	}
 	.table-number{
 		background-color: $accent-1;
 	}
-	.table-content{
-		span{
-			color: $light-2;
-		}
-		h4{
-			color: $light-1;
-		}
-	}
 }
 :host(.is-linked){
+	figure:before{
+		border: 5px solid $yellow-1;
+	}
 	.table-number{
 		background-color: $yellow-1;
 		color: rgba(0,0,0,0.75);
@@ -48,6 +40,8 @@ $table-border-radius: 20px;
 
 		opacity: 0.25;
 	}
+}
+:host(.is-disabled.is-selected){
 }
 
 .table-stats, .table-content{
@@ -145,6 +139,7 @@ figure{
 		left: 10px;
 		width: 180px;
 		height: 120px;
+		box-sizing: border-box;
 
 		border-radius: $table-border-radius;
 		z-index: 1;

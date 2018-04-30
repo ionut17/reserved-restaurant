@@ -19,6 +19,7 @@ const DEFAULT_TOASTER_SETTINGS: ToasterSettings = {
 export class ToasterService {
 
 	private overlayRef: OverlayRef;
+	private currentSub: Subscription;
 
 	constructor(private overlay: Overlay) {
 		this.overlayRef = this.overlay.create({
@@ -44,17 +45,22 @@ export class ToasterService {
 	}
 
 	toast(config?: ToasterSettings): any {
+		if (this.overlayRef.hasAttached()){
+			this.overlayRef.detach();
+		}
 		const componentPortal = new ComponentPortal(ToasterComponent);
 		const componentInstance: ToasterComponent = this.overlayRef.attach(componentPortal).instance;
 		componentInstance.toaster = this.buildToasterSettings(config);
-		const localSub: Subscription = componentInstance.onClose.subscribe(()=>{
+		this.currentSub = componentInstance.onClose.subscribe(()=>{
 			this.dismiss();
-			localSub.unsubscribe();
 		});
 		return componentInstance;
 	}
 
 	dismiss(): void {
+		if (this.currentSub){
+			this.currentSub.unsubscribe();
+		}
 		this.overlayRef.detach();
 	}
 
