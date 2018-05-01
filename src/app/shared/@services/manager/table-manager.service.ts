@@ -91,9 +91,16 @@ export class TableManagerService {
 	getPendingFutureReservationByTable(table: Table): Reservation{
 		let found: Reservation;
 		this.pendingReservations.forEach((res:Reservation)=>{
-			const isOverdue: boolean = this.isReservationOverdue(res);
-			if (!isOverdue && res.tables.indexOf(table.id) > -1){
-				found = res;
+			//Check if the reservation has the param table
+			const isCandidate: boolean = res.tables.indexOf(table.id) > -1;
+			if (isCandidate){
+				//Continue only if the reservation is not overdue
+				const isOverdue: boolean = this.isReservationOverdue(res);
+				if (!isOverdue){
+					//Get the closest reservation to current time
+					let newFound = !found || moment.utc(res.startTime).isBefore(moment.utc(found.startTime)) ? res : found;
+					found = newFound;
+				}
 			}
 		});
 		return found;
@@ -145,7 +152,7 @@ export class TableManagerService {
 
 	private isReservationOverdue(reservation):boolean{
 		const startTime: Moment = moment.utc(reservation.startTime);
-		const current: Moment =this.timeboxService.hasSelected() ? this.timeboxService.selectedItem : moment();
+		const current: Moment = this.timeboxService.hasSelected() ? this.timeboxService.selectedItem : moment();
     return startTime.isBefore(current, 'minute');
 	}
 

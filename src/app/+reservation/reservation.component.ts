@@ -93,7 +93,6 @@ export class ReservationComponent implements OnInit, OnDestroy {
 
   private autoInitializeReservationsUpdate(restaurant: Restaurant){
     this.intervalSubscription = Observable.interval(environment.settings.reservationsUpdateInterval).subscribe(()=>{
-      console.log('reinit reservations');
       this.initializeReservations(restaurant.id);
     });
   }

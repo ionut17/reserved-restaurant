@@ -12,18 +12,16 @@
 	background-color: $dark-2;
 
 	&:after{
+		@extend %accent-bar;
 		content: '';
 		position: absolute;
 		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 25px;
-		height: 5px;
-		background-color: $accent-1;
 	}
 
 	rs-icon{
-		color: $light-2;
+		color: $light-3;
 		margin-right: nth($margins, 1);
 	}
 
@@ -33,6 +31,16 @@
 
 	rs-icon, .time-wrapper h5{
 		color: rgba(255,255,255,0.75);
+	}
+}
+:host(.linked){
+	background: $gradient-yellow;
+
+	rs-icon, .time-wrapper h5, .time-wrapper h4{
+		color: rgba(0,0,0,0.85);
+	}
+	&:after{
+		background-color: rgba(0,0,0,0.85);
 	}
 }
 

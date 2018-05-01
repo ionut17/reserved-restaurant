@@ -5,7 +5,8 @@ import * as moment from 'moment';
 
 enum TimeboxEntryType {
   Normal = <any>"normal",
-  Selected = <any>"selected"
+  Selected = <any>"selected",
+  Linked = <any>"linked"
 }
 
 @Component({

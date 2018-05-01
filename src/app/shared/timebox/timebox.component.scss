@@ -11,9 +11,8 @@
 	width: 60px;
 	height: 100px;
 
-	background-color: $accent-1;
-	color: rgba(255,255,255,0.75);
-	border-left: 1px solid darken($accent-1,10);
+	background-color: $dark-2;
+	color: $light-3;
 }
 
 rs-timebox-entry.normal, .close-selection{

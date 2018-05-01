@@ -7,7 +7,7 @@ import { Moment } from 'moment';
 import * as moment from 'moment';
 
 import { Openable } from '../@model';
-import { PopupService } from '../@services';
+import { PopupService, ReservationManagerService } from '../@services';
 import { TimeboxService } from './timebox.service';
 import { DatetimePickerComponent } from '../core/datetime-picker/datetime-picker.component';
 
@@ -22,8 +22,13 @@ export class TimeboxComponent implements OnInit, OnDestroy {
   selectedTime: Moment;
   private intervalSubscription: Subscription;
 
+  get customTimeClass():string{
+    return this.reservationManagerService.hasSelected() ? 'linked' : 'selected';
+  }
+
   constructor(private ngZone: NgZone,
     private timeboxService: TimeboxService,
+    private reservationManagerService: ReservationManagerService,
     private popupService: PopupService) { }
 
   /**
