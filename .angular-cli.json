@@ -20,7 +20,7 @@
       "prefix": "rs",
       "styles": [
         "styles.scss",
-        "../../reServed-core/assets/icons/css/line-awesome.scss"
+        "assets/icons/css/line-awesome.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
