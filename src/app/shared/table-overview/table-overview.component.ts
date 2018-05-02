@@ -27,11 +27,11 @@ export class TableOverviewComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tables'] && this.tables) {
       this.tables.sort((a: Table, b: Table) => a.number - b.number);
-      this.updateNextReservations();
+      this.update();
     }
     if (changes['reservations'] && this.reservations) {
       this.tableManagerService.updateReservations(this.reservations);
-      this.updateNextReservations();
+      this.update();
     }
   }
 
@@ -68,6 +68,13 @@ export class TableOverviewComponent implements OnInit {
         this.tableManagerService.select(table);
         break;
     }
+  }
+
+  /**
+   * Sets table overview local data
+   */
+  update(){
+    this.updateNextReservations();
   }
 
   private updateNextReservations(){

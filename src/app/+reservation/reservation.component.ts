@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Moment } from 'moment';
@@ -10,6 +10,7 @@ import { Restaurant, Reservation, SocketEntityWrapper, SocketPayloadAction, Rese
 import { SocketService, RestaurantService, reservationEndpoint, RestaurantManagerService } from '../shared/@services';
 import { TimeboxService } from '../shared/timebox/timebox.service';
 import { environment } from '../../environments/environment';
+import { TableOverviewComponent } from '../shared/table-overview/table-overview.component';
 
 const restaurantId: string = 'd3c498c1-fae8-445f-ab57-abfc7481cf93';
 
@@ -19,6 +20,8 @@ const restaurantId: string = 'd3c498c1-fae8-445f-ab57-abfc7481cf93';
   styleUrls: ['./reservation.component.scss']
 })
 export class ReservationComponent implements OnInit, OnDestroy {
+
+  @ViewChild(TableOverviewComponent) tableOverview: TableOverviewComponent;
 
   restaurant: Restaurant;
   reservations: Map<string, Reservation>;
@@ -75,7 +78,8 @@ export class ReservationComponent implements OnInit, OnDestroy {
         break;
     }
     this.reservationsExtended = new Map(this.reservationsExtended); //Drop old cached version
-    this.reservations = this.getBaseReservationsFrom(this.reservationsExtended);
+    this.reservations = this.getBaseReservationsFrom(this.reservationsExtended); //Replace normal reservations
+    this.tableOverview.update(); //Force an update of the table overview
   }
 
   private initialize() {
