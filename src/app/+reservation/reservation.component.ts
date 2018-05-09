@@ -7,7 +7,7 @@ import * as Stomp from "stompjs";
 import * as _ from "lodash";
 
 import { Restaurant, Reservation, SocketEntityWrapper, SocketPayloadAction, ReservationExtended } from '../shared/@model';
-import { SocketService, RestaurantService, reservationEndpoint, RestaurantManagerService } from '../shared/@services';
+import { SocketService, RestaurantService, reservationEndpoint, RestaurantManagerService, ToasterService } from '../shared/@services';
 import { TimeboxService } from '../shared/timebox/timebox.service';
 import { environment } from '../../environments/environment';
 import { TableOverviewComponent } from '../shared/table-overview/table-overview.component';
@@ -34,7 +34,8 @@ export class ReservationComponent implements OnInit, OnDestroy {
   constructor(private restaurantService: RestaurantService,
               private restaurantManagerService: RestaurantManagerService,
               private socketService: SocketService,
-              private timeboxService: TimeboxService) {
+              private timeboxService: TimeboxService,
+              private toasterService: ToasterService) {
     this.initialize();
   }
 
@@ -59,9 +60,15 @@ export class ReservationComponent implements OnInit, OnDestroy {
   private syncReservations(message: Stomp.Message) {
     const socketResponse: SocketEntityWrapper = JSON.parse(message.body) as SocketEntityWrapper;
     const reservation: ReservationExtended = socketResponse.socketEntity as ReservationExtended;
+    if (reservation.restaurantId !== this.restaurant.id){
+      return;
+    }
+    console.log(reservation);
     switch (socketResponse.action) {
       case SocketPayloadAction.Created:
         this.reservationsExtended.set(reservation.id, reservation);
+        const label: string = reservation.people > 1 ? 'persoane' : 'persoana';
+        this.toasterService.success(`O rezervare nouă a fost adaugată!`);
         break;
       case SocketPayloadAction.Updated:
         if (this.reservationsExtended.has(reservation.id)) {
@@ -72,9 +79,11 @@ export class ReservationComponent implements OnInit, OnDestroy {
             this.reservationsExtended.delete(reservation.id);
           }
         }
+        this.toasterService.success(`O rezervare a fost actualizată!`);
         break;
       case SocketPayloadAction.Deleted:
         this.reservationsExtended.delete(reservation.id);
+        this.toasterService.success("O rezervare a fost ștearsă!");
         break;
     }
     this.reservationsExtended = new Map(this.reservationsExtended); //Drop old cached version
