@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, HostBinding, ElementRef
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { Reservation } from '../../shared/@model';
+import { Reservation, ReservationExtended } from '../../shared/@model';
 import { LdatePipe } from '../../shared/@pipes/ldate.pipe';
 import { TimeboxService } from '../../shared/timebox/timebox.service';
 import { ReservationManagerService } from '../../shared/@services';
@@ -14,7 +14,7 @@ import { ReservationManagerService } from '../../shared/@services';
 })
 export class ReservationEntryComponent implements OnInit {
 
-  @Input() reservation: Reservation;
+  @Input() reservation: ReservationExtended;
 
   @Input() @HostBinding('class.is-selected') selected: boolean = false;
 
